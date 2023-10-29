@@ -1,0 +1,2484 @@
+{
+  "uuid": "c3894030-e3a4-4a34-bbdc-0317315b092c",
+  "lastMigration": 28,
+  "name": "YNAB API Endpoints",
+  "endpointPrefix": "v1",
+  "latency": 0,
+  "port": 3002,
+  "hostname": "",
+  "folders": [],
+  "routes": [
+    {
+      "uuid": "334842db-cd76-4c5e-bb70-3e3dd6f1d08b",
+      "type": "http",
+      "documentation": "User info",
+      "method": "get",
+      "endpoint": "user",
+      "responses": [
+        {
+          "uuid": "f9afa842-26e1-4526-884f-14fa3c9ed2d1",
+          "body": "{\n  \"data\": {\n    \"user\": {\n      \"id\": \"{{faker 'datatype.uuid'}}\"\n    }\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The user info",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id"
+        },
+        {
+          "uuid": "67f372e1-b682-45ab-a3d9-b8f737b711e5",
+          "body": "{\n  \"error\": {\n    \"id\": \"\",\n    \"name\": \"\",\n    \"detail\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "An error occurred",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id"
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "9b740082-021c-4b88-8883-4d49d22677e8",
+      "type": "http",
+      "documentation": "List budgets",
+      "method": "get",
+      "endpoint": "budgets",
+      "responses": [
+        {
+          "uuid": "0e7f105e-1951-4fbe-82dc-590550c79d82",
+          "body": "{\n  \"data\": {\n    \"budgets\": [\n      {\n        \"id\": \"{{faker 'datatype.uuid'}}\",\n        \"name\": \"\",\n        \"last_modified_on\": \"{{faker 'date.recent' 365}}\",\n        \"first_month\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n        \"last_month\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n        \"date_format\": {\n          \"format\": \"\"\n        },\n        \"currency_format\": {\n          \"iso_code\": \"\",\n          \"example_format\": \"\",\n          \"decimal_digits\": {{faker 'datatype.number'}},\n          \"decimal_separator\": \"\",\n          \"symbol_first\": {{faker 'datatype.boolean'}},\n          \"group_separator\": \"\",\n          \"currency_symbol\": \"\",\n          \"display_symbol\": {{faker 'datatype.boolean'}}\n        },\n        \"accounts\": [\n          {\n            \"id\": \"{{faker 'datatype.uuid'}}\",\n            \"name\": \"\",\n            \"type\": \"{{oneOf (array 'checking' 'savings' 'cash' 'creditCard' 'lineOfCredit' 'otherAsset' 'otherLiability' 'mortgage' 'autoLoan' 'studentLoan' 'personalLoan' 'medicalDebt' 'otherDebt')}}\",\n            \"on_budget\": {{faker 'datatype.boolean'}},\n            \"closed\": {{faker 'datatype.boolean'}},\n            \"note\": \"\",\n            \"balance\": {{faker 'datatype.number'}},\n            \"cleared_balance\": {{faker 'datatype.number'}},\n            \"uncleared_balance\": {{faker 'datatype.number'}},\n            \"transfer_payee_id\": \"{{faker 'datatype.uuid'}}\",\n            \"direct_import_linked\": {{faker 'datatype.boolean'}},\n            \"direct_import_in_error\": {{faker 'datatype.boolean'}},\n            \"last_reconciled_at\": \"{{faker 'date.recent' 365}}\",\n            \"debt_original_balance\": {{faker 'datatype.number'}},\n            \"debt_interest_rates\": {},\n            \"debt_minimum_payments\": {},\n            \"debt_escrow_amounts\": {},\n            \"deleted\": {{faker 'datatype.boolean'}}\n          }\n        ]\n      }\n    ],\n    \"default_budget\": {\n      \"id\": \"{{faker 'datatype.uuid'}}\",\n      \"name\": \"\",\n      \"last_modified_on\": \"{{faker 'date.recent' 365}}\",\n      \"first_month\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n      \"last_month\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n      \"date_format\": {\n        \"format\": \"\"\n      },\n      \"currency_format\": {\n        \"iso_code\": \"\",\n        \"example_format\": \"\",\n        \"decimal_digits\": {{faker 'datatype.number'}},\n        \"decimal_separator\": \"\",\n        \"symbol_first\": {{faker 'datatype.boolean'}},\n        \"group_separator\": \"\",\n        \"currency_symbol\": \"\",\n        \"display_symbol\": {{faker 'datatype.boolean'}}\n      },\n      \"accounts\": [\n        {\n          \"id\": \"{{faker 'datatype.uuid'}}\",\n          \"name\": \"\",\n          \"type\": \"{{oneOf (array 'checking' 'savings' 'cash' 'creditCard' 'lineOfCredit' 'otherAsset' 'otherLiability' 'mortgage' 'autoLoan' 'studentLoan' 'personalLoan' 'medicalDebt' 'otherDebt')}}\",\n          \"on_budget\": {{faker 'datatype.boolean'}},\n          \"closed\": {{faker 'datatype.boolean'}},\n          \"note\": \"\",\n          \"balance\": {{faker 'datatype.number'}},\n          \"cleared_balance\": {{faker 'datatype.number'}},\n          \"uncleared_balance\": {{faker 'datatype.number'}},\n          \"transfer_payee_id\": \"{{faker 'datatype.uuid'}}\",\n          \"direct_import_linked\": {{faker 'datatype.boolean'}},\n          \"direct_import_in_error\": {{faker 'datatype.boolean'}},\n          \"last_reconciled_at\": \"{{faker 'date.recent' 365}}\",\n          \"debt_original_balance\": {{faker 'datatype.number'}},\n          \"debt_interest_rates\": {},\n          \"debt_minimum_payments\": {},\n          \"debt_escrow_amounts\": {},\n          \"deleted\": {{faker 'datatype.boolean'}}\n        }\n      ]\n    }\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The list of budgets",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id"
+        },
+        {
+          "uuid": "ea0e7f85-7558-45e6-960e-d72bea5f303a",
+          "body": "{\n  \"error\": {\n    \"id\": \"\",\n    \"name\": \"\",\n    \"detail\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "No budgets were found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id"
+        },
+        {
+          "uuid": "a4ce7ce2-4a1d-435e-b2c2-d6ebadb0b6cb",
+          "body": "{\n  \"error\": {\n    \"id\": \"\",\n    \"name\": \"\",\n    \"detail\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "An error occurred",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id"
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "daf87552-1cd7-4f9d-8125-36335f5d3efb",
+      "type": "http",
+      "documentation": "Single budget",
+      "method": "get",
+      "endpoint": "budgets/:budget_id",
+      "responses": [
+        {
+          "uuid": "6d94b81d-6ce9-4177-93c5-a868a0e19135",
+          "body": "{\n  \"data\": {\n    \"budget\": {\n      \"id\": \"{{faker 'datatype.uuid'}}\",\n      \"name\": \"\",\n      \"last_modified_on\": \"{{faker 'date.recent' 365}}\",\n      \"first_month\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n      \"last_month\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n      \"date_format\": {\n        \"format\": \"\"\n      },\n      \"currency_format\": {\n        \"iso_code\": \"\",\n        \"example_format\": \"\",\n        \"decimal_digits\": {{faker 'datatype.number'}},\n        \"decimal_separator\": \"\",\n        \"symbol_first\": {{faker 'datatype.boolean'}},\n        \"group_separator\": \"\",\n        \"currency_symbol\": \"\",\n        \"display_symbol\": {{faker 'datatype.boolean'}}\n      },\n      \"accounts\": [\n        {\n          \"id\": \"{{faker 'datatype.uuid'}}\",\n          \"name\": \"\",\n          \"type\": \"{{oneOf (array 'checking' 'savings' 'cash' 'creditCard' 'lineOfCredit' 'otherAsset' 'otherLiability' 'mortgage' 'autoLoan' 'studentLoan' 'personalLoan' 'medicalDebt' 'otherDebt')}}\",\n          \"on_budget\": {{faker 'datatype.boolean'}},\n          \"closed\": {{faker 'datatype.boolean'}},\n          \"note\": \"\",\n          \"balance\": {{faker 'datatype.number'}},\n          \"cleared_balance\": {{faker 'datatype.number'}},\n          \"uncleared_balance\": {{faker 'datatype.number'}},\n          \"transfer_payee_id\": \"{{faker 'datatype.uuid'}}\",\n          \"direct_import_linked\": {{faker 'datatype.boolean'}},\n          \"direct_import_in_error\": {{faker 'datatype.boolean'}},\n          \"last_reconciled_at\": \"{{faker 'date.recent' 365}}\",\n          \"debt_original_balance\": {{faker 'datatype.number'}},\n          \"debt_interest_rates\": {},\n          \"debt_minimum_payments\": {},\n          \"debt_escrow_amounts\": {},\n          \"deleted\": {{faker 'datatype.boolean'}}\n        }\n      ]\n    },\n    \"server_knowledge\": {{faker 'datatype.number'}}\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The requested budget",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id"
+        },
+        {
+          "uuid": "687350ac-8e88-4351-bb97-6087fdccb6b0",
+          "body": "{\n  \"error\": {\n    \"id\": \"\",\n    \"name\": \"\",\n    \"detail\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "The specified budget was not found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id"
+        },
+        {
+          "uuid": "34fa28fa-efec-4baa-9fdf-682c8729ca2f",
+          "body": "{\n  \"error\": {\n    \"id\": \"\",\n    \"name\": \"\",\n    \"detail\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "An error occurred",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id"
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "a5ff343c-3e47-45f0-a3a4-5e100bbb04f4",
+      "type": "http",
+      "documentation": "Budget Settings",
+      "method": "get",
+      "endpoint": "budgets/:budget_id/settings",
+      "responses": [
+        {
+          "uuid": "81c13525-8b41-433e-8a50-08ec12e71df7",
+          "body": "{\n  \"data\": {\n    \"settings\": {\n      \"date_format\": {\n        \"format\": \"\"\n      },\n      \"currency_format\": {\n        \"iso_code\": \"\",\n        \"example_format\": \"\",\n        \"decimal_digits\": {{faker 'datatype.number'}},\n        \"decimal_separator\": \"\",\n        \"symbol_first\": {{faker 'datatype.boolean'}},\n        \"group_separator\": \"\",\n        \"currency_symbol\": \"\",\n        \"display_symbol\": {{faker 'datatype.boolean'}}\n      }\n    }\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The requested budget settings",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id"
+        },
+        {
+          "uuid": "e09f1962-f446-4481-b805-6a58d1da841e",
+          "body": "{\n  \"error\": {\n    \"id\": \"\",\n    \"name\": \"\",\n    \"detail\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "The specified Budget was not found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id"
+        },
+        {
+          "uuid": "8c383f7a-7d0d-41b5-b760-5bcff52572b3",
+          "body": "{\n  \"error\": {\n    \"id\": \"\",\n    \"name\": \"\",\n    \"detail\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "An error occurred",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id"
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "4b286a9d-49f9-43b2-9ab3-294ee8db2dba",
+      "type": "http",
+      "documentation": "Account list",
+      "method": "get",
+      "endpoint": "budgets/:budget_id/accounts",
+      "responses": [
+        {
+          "uuid": "0b8b125d-111b-495f-933d-96222334ba94",
+          "body": "{\n  \"data\": {\n    \"accounts\": [\n      {\n        \"id\": \"{{faker 'datatype.uuid'}}\",\n        \"name\": \"\",\n        \"type\": \"{{oneOf (array 'checking' 'savings' 'cash' 'creditCard' 'lineOfCredit' 'otherAsset' 'otherLiability' 'mortgage' 'autoLoan' 'studentLoan' 'personalLoan' 'medicalDebt' 'otherDebt')}}\",\n        \"on_budget\": {{faker 'datatype.boolean'}},\n        \"closed\": {{faker 'datatype.boolean'}},\n        \"note\": \"\",\n        \"balance\": {{faker 'datatype.number'}},\n        \"cleared_balance\": {{faker 'datatype.number'}},\n        \"uncleared_balance\": {{faker 'datatype.number'}},\n        \"transfer_payee_id\": \"{{faker 'datatype.uuid'}}\",\n        \"direct_import_linked\": {{faker 'datatype.boolean'}},\n        \"direct_import_in_error\": {{faker 'datatype.boolean'}},\n        \"last_reconciled_at\": \"{{faker 'date.recent' 365}}\",\n        \"debt_original_balance\": {{faker 'datatype.number'}},\n        \"debt_interest_rates\": {},\n        \"debt_minimum_payments\": {},\n        \"debt_escrow_amounts\": {},\n        \"deleted\": {{faker 'datatype.boolean'}}\n      }\n    ],\n    \"server_knowledge\": {{faker 'datatype.number'}}\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The list of requested accounts",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id"
+        },
+        {
+          "uuid": "a9f07e9d-22b9-46bd-b022-c667b4dd3041",
+          "body": "{\n  \"error\": {\n    \"id\": \"\",\n    \"name\": \"\",\n    \"detail\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "No accounts were found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id"
+        },
+        {
+          "uuid": "8c7ca834-497c-4fb5-8b86-821eb691185a",
+          "body": "{\n  \"error\": {\n    \"id\": \"\",\n    \"name\": \"\",\n    \"detail\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "An error occurred",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id"
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "cee2f529-4836-4e66-bdbd-41d13a7317fd",
+      "type": "http",
+      "documentation": "Create a new account",
+      "method": "post",
+      "endpoint": "budgets/:budget_id/accounts",
+      "responses": [
+        {
+          "uuid": "5f760104-757e-4843-84a9-70e2ad3aa355",
+          "body": "{\n  \"data\": {\n    \"account\": {\n      \"id\": \"{{faker 'datatype.uuid'}}\",\n      \"name\": \"\",\n      \"type\": \"{{oneOf (array 'checking' 'savings' 'cash' 'creditCard' 'lineOfCredit' 'otherAsset' 'otherLiability' 'mortgage' 'autoLoan' 'studentLoan' 'personalLoan' 'medicalDebt' 'otherDebt')}}\",\n      \"on_budget\": {{faker 'datatype.boolean'}},\n      \"closed\": {{faker 'datatype.boolean'}},\n      \"note\": \"\",\n      \"balance\": {{faker 'datatype.number'}},\n      \"cleared_balance\": {{faker 'datatype.number'}},\n      \"uncleared_balance\": {{faker 'datatype.number'}},\n      \"transfer_payee_id\": \"{{faker 'datatype.uuid'}}\",\n      \"direct_import_linked\": {{faker 'datatype.boolean'}},\n      \"direct_import_in_error\": {{faker 'datatype.boolean'}},\n      \"last_reconciled_at\": \"{{faker 'date.recent' 365}}\",\n      \"debt_original_balance\": {{faker 'datatype.number'}},\n      \"debt_interest_rates\": {},\n      \"debt_minimum_payments\": {},\n      \"debt_escrow_amounts\": {},\n      \"deleted\": {{faker 'datatype.boolean'}}\n    }\n  }\n}",
+          "latency": 0,
+          "statusCode": 201,
+          "label": "The account was successfully created",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id"
+        },
+        {
+          "uuid": "6404fe85-772a-4799-add4-fc009e617635",
+          "body": "{\n  \"error\": {\n    \"id\": \"\",\n    \"name\": \"\",\n    \"detail\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "The request could not be understood due to malformed syntax or validation error(s).",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id"
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "13f04fa0-ce7c-42eb-831e-22a641b9c42e",
+      "type": "http",
+      "documentation": "Single account",
+      "method": "get",
+      "endpoint": "budgets/:budget_id/accounts/:account_id",
+      "responses": [
+        {
+          "uuid": "6f747379-3d1c-4dc5-bda3-3b7b2b4be10f",
+          "body": "{\n  \"data\": {\n    \"account\": {\n      \"id\": \"{{faker 'datatype.uuid'}}\",\n      \"name\": \"\",\n      \"type\": \"{{oneOf (array 'checking' 'savings' 'cash' 'creditCard' 'lineOfCredit' 'otherAsset' 'otherLiability' 'mortgage' 'autoLoan' 'studentLoan' 'personalLoan' 'medicalDebt' 'otherDebt')}}\",\n      \"on_budget\": {{faker 'datatype.boolean'}},\n      \"closed\": {{faker 'datatype.boolean'}},\n      \"note\": \"\",\n      \"balance\": {{faker 'datatype.number'}},\n      \"cleared_balance\": {{faker 'datatype.number'}},\n      \"uncleared_balance\": {{faker 'datatype.number'}},\n      \"transfer_payee_id\": \"{{faker 'datatype.uuid'}}\",\n      \"direct_import_linked\": {{faker 'datatype.boolean'}},\n      \"direct_import_in_error\": {{faker 'datatype.boolean'}},\n      \"last_reconciled_at\": \"{{faker 'date.recent' 365}}\",\n      \"debt_original_balance\": {{faker 'datatype.number'}},\n      \"debt_interest_rates\": {},\n      \"debt_minimum_payments\": {},\n      \"debt_escrow_amounts\": {},\n      \"deleted\": {{faker 'datatype.boolean'}}\n    }\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The requested account",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id"
+        },
+        {
+          "uuid": "9716157e-6423-4798-817b-fc523c5d5682",
+          "body": "{\n  \"error\": {\n    \"id\": \"\",\n    \"name\": \"\",\n    \"detail\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "The requested account was not found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id"
+        },
+        {
+          "uuid": "34cc6ee1-f969-4afb-9cc7-47b35ce7fca4",
+          "body": "{\n  \"error\": {\n    \"id\": \"\",\n    \"name\": \"\",\n    \"detail\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "An error occurred",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id"
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "ebbbc892-1697-4dc3-875b-966f42232023",
+      "type": "http",
+      "documentation": "List categories",
+      "method": "get",
+      "endpoint": "budgets/:budget_id/categories",
+      "responses": [
+        {
+          "uuid": "c70d9919-f9e1-4447-b095-125fe56ed75f",
+          "body": "{\n  \"data\": {\n    \"category_groups\": [\n      {\n        \"id\": \"{{faker 'datatype.uuid'}}\",\n        \"name\": \"\",\n        \"hidden\": {{faker 'datatype.boolean'}},\n        \"deleted\": {{faker 'datatype.boolean'}}\n      }\n    ],\n    \"server_knowledge\": {{faker 'datatype.number'}}\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The categories grouped by category group",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id"
+        },
+        {
+          "uuid": "4630e253-cc46-40ae-bf22-ebd4620264d6",
+          "body": "{\n  \"error\": {\n    \"id\": \"\",\n    \"name\": \"\",\n    \"detail\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "No categories were found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id"
+        },
+        {
+          "uuid": "28d8b6b7-4453-423b-99fe-0eb3528ce5e5",
+          "body": "{\n  \"error\": {\n    \"id\": \"\",\n    \"name\": \"\",\n    \"detail\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "An error occurred",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id"
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "5250b2ea-2b96-445a-89eb-365076761c6b",
+      "type": "http",
+      "documentation": "Single category",
+      "method": "get",
+      "endpoint": "budgets/:budget_id/categories/:category_id",
+      "responses": [
+        {
+          "uuid": "fdf1d1fe-12f7-481c-921a-ce077437f46d",
+          "body": "{\n  \"data\": {\n    \"category\": {\n      \"id\": \"{{faker 'datatype.uuid'}}\",\n      \"category_group_id\": \"{{faker 'datatype.uuid'}}\",\n      \"category_group_name\": \"\",\n      \"name\": \"\",\n      \"hidden\": {{faker 'datatype.boolean'}},\n      \"original_category_group_id\": \"{{faker 'datatype.uuid'}}\",\n      \"note\": \"\",\n      \"budgeted\": {{faker 'datatype.number'}},\n      \"activity\": {{faker 'datatype.number'}},\n      \"balance\": {{faker 'datatype.number'}},\n      \"goal_type\": \"{{oneOf (array 'TB' 'TBD' 'MF' 'NEED' 'DEBT' '')}}\",\n      \"goal_day\": {{faker 'datatype.number'}},\n      \"goal_cadence\": {{faker 'datatype.number'}},\n      \"goal_cadence_frequency\": {{faker 'datatype.number'}},\n      \"goal_creation_month\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n      \"goal_target\": {{faker 'datatype.number'}},\n      \"goal_target_month\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n      \"goal_percentage_complete\": {{faker 'datatype.number'}},\n      \"goal_months_to_budget\": {{faker 'datatype.number'}},\n      \"goal_under_funded\": {{faker 'datatype.number'}},\n      \"goal_overall_funded\": {{faker 'datatype.number'}},\n      \"goal_overall_left\": {{faker 'datatype.number'}},\n      \"deleted\": {{faker 'datatype.boolean'}}\n    }\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The requested category",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id"
+        },
+        {
+          "uuid": "58b443af-f3b7-4699-849f-45a856fff8f6",
+          "body": "{\n  \"error\": {\n    \"id\": \"\",\n    \"name\": \"\",\n    \"detail\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "The category not was found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id"
+        },
+        {
+          "uuid": "883765e0-c3ad-438a-85af-8067dd656c80",
+          "body": "{\n  \"error\": {\n    \"id\": \"\",\n    \"name\": \"\",\n    \"detail\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "An error occurred",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id"
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "e65f70f5-74fe-45b6-8afa-18fc4e1c871a",
+      "type": "http",
+      "documentation": "Update a category",
+      "method": "patch",
+      "endpoint": "budgets/:budget_id/categories/:category_id",
+      "responses": [
+        {
+          "uuid": "b8b372cb-1adb-4d81-ad95-346d35403613",
+          "body": "{\n  \"data\": {\n    \"category\": {\n      \"id\": \"{{faker 'datatype.uuid'}}\",\n      \"category_group_id\": \"{{faker 'datatype.uuid'}}\",\n      \"category_group_name\": \"\",\n      \"name\": \"\",\n      \"hidden\": {{faker 'datatype.boolean'}},\n      \"original_category_group_id\": \"{{faker 'datatype.uuid'}}\",\n      \"note\": \"\",\n      \"budgeted\": {{faker 'datatype.number'}},\n      \"activity\": {{faker 'datatype.number'}},\n      \"balance\": {{faker 'datatype.number'}},\n      \"goal_type\": \"{{oneOf (array 'TB' 'TBD' 'MF' 'NEED' 'DEBT' '')}}\",\n      \"goal_day\": {{faker 'datatype.number'}},\n      \"goal_cadence\": {{faker 'datatype.number'}},\n      \"goal_cadence_frequency\": {{faker 'datatype.number'}},\n      \"goal_creation_month\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n      \"goal_target\": {{faker 'datatype.number'}},\n      \"goal_target_month\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n      \"goal_percentage_complete\": {{faker 'datatype.number'}},\n      \"goal_months_to_budget\": {{faker 'datatype.number'}},\n      \"goal_under_funded\": {{faker 'datatype.number'}},\n      \"goal_overall_funded\": {{faker 'datatype.number'}},\n      \"goal_overall_left\": {{faker 'datatype.number'}},\n      \"deleted\": {{faker 'datatype.boolean'}}\n    },\n    \"server_knowledge\": {{faker 'datatype.number'}}\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The category was successfully updated",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id"
+        },
+        {
+          "uuid": "eca904dc-a3fe-4bd4-8448-3b2deacc0862",
+          "body": "{\n  \"error\": {\n    \"id\": \"\",\n    \"name\": \"\",\n    \"detail\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "The request could not be understood due to malformed syntax or validation error(s)",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id"
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "1423ae18-c074-4843-b3f5-d3ea58a1d865",
+      "type": "http",
+      "documentation": "Single category for a specific budget month",
+      "method": "get",
+      "endpoint": "budgets/:budget_id/months/:month/categories/:category_id",
+      "responses": [
+        {
+          "uuid": "39549599-0b27-4c3a-b2f1-a65c9ec16219",
+          "body": "{\n  \"data\": {\n    \"category\": {\n      \"id\": \"{{faker 'datatype.uuid'}}\",\n      \"category_group_id\": \"{{faker 'datatype.uuid'}}\",\n      \"category_group_name\": \"\",\n      \"name\": \"\",\n      \"hidden\": {{faker 'datatype.boolean'}},\n      \"original_category_group_id\": \"{{faker 'datatype.uuid'}}\",\n      \"note\": \"\",\n      \"budgeted\": {{faker 'datatype.number'}},\n      \"activity\": {{faker 'datatype.number'}},\n      \"balance\": {{faker 'datatype.number'}},\n      \"goal_type\": \"{{oneOf (array 'TB' 'TBD' 'MF' 'NEED' 'DEBT' '')}}\",\n      \"goal_day\": {{faker 'datatype.number'}},\n      \"goal_cadence\": {{faker 'datatype.number'}},\n      \"goal_cadence_frequency\": {{faker 'datatype.number'}},\n      \"goal_creation_month\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n      \"goal_target\": {{faker 'datatype.number'}},\n      \"goal_target_month\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n      \"goal_percentage_complete\": {{faker 'datatype.number'}},\n      \"goal_months_to_budget\": {{faker 'datatype.number'}},\n      \"goal_under_funded\": {{faker 'datatype.number'}},\n      \"goal_overall_funded\": {{faker 'datatype.number'}},\n      \"goal_overall_left\": {{faker 'datatype.number'}},\n      \"deleted\": {{faker 'datatype.boolean'}}\n    }\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The requested month category",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id"
+        },
+        {
+          "uuid": "d6a938f2-fd3e-454b-acdf-4ca937735130",
+          "body": "{\n  \"error\": {\n    \"id\": \"\",\n    \"name\": \"\",\n    \"detail\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "The month category was not was found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id"
+        },
+        {
+          "uuid": "e4de3fbd-0427-4c13-9e75-9e42576230f3",
+          "body": "{\n  \"error\": {\n    \"id\": \"\",\n    \"name\": \"\",\n    \"detail\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "An error occurred",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id"
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "1fd2f09a-23ae-40b8-b278-d088532a24b4",
+      "type": "http",
+      "documentation": "Update a category for a specific month",
+      "method": "patch",
+      "endpoint": "budgets/:budget_id/months/:month/categories/:category_id",
+      "responses": [
+        {
+          "uuid": "04fdb5a7-0115-4f6e-8187-ca9bda778220",
+          "body": "{\n  \"data\": {\n    \"category\": {\n      \"id\": \"{{faker 'datatype.uuid'}}\",\n      \"category_group_id\": \"{{faker 'datatype.uuid'}}\",\n      \"category_group_name\": \"\",\n      \"name\": \"\",\n      \"hidden\": {{faker 'datatype.boolean'}},\n      \"original_category_group_id\": \"{{faker 'datatype.uuid'}}\",\n      \"note\": \"\",\n      \"budgeted\": {{faker 'datatype.number'}},\n      \"activity\": {{faker 'datatype.number'}},\n      \"balance\": {{faker 'datatype.number'}},\n      \"goal_type\": \"{{oneOf (array 'TB' 'TBD' 'MF' 'NEED' 'DEBT' '')}}\",\n      \"goal_day\": {{faker 'datatype.number'}},\n      \"goal_cadence\": {{faker 'datatype.number'}},\n      \"goal_cadence_frequency\": {{faker 'datatype.number'}},\n      \"goal_creation_month\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n      \"goal_target\": {{faker 'datatype.number'}},\n      \"goal_target_month\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n      \"goal_percentage_complete\": {{faker 'datatype.number'}},\n      \"goal_months_to_budget\": {{faker 'datatype.number'}},\n      \"goal_under_funded\": {{faker 'datatype.number'}},\n      \"goal_overall_funded\": {{faker 'datatype.number'}},\n      \"goal_overall_left\": {{faker 'datatype.number'}},\n      \"deleted\": {{faker 'datatype.boolean'}}\n    },\n    \"server_knowledge\": {{faker 'datatype.number'}}\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The month category was successfully updated",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id"
+        },
+        {
+          "uuid": "de8bd3a8-9738-4539-901e-555bcfead8d5",
+          "body": "{\n  \"error\": {\n    \"id\": \"\",\n    \"name\": \"\",\n    \"detail\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "The request could not be understood due to malformed syntax or validation error(s)",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id"
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "068ef144-c7d3-4ce5-ac3a-f4ce0d48b5cc",
+      "type": "http",
+      "documentation": "List payees",
+      "method": "get",
+      "endpoint": "budgets/:budget_id/payees",
+      "responses": [
+        {
+          "uuid": "ecd2dcd2-bf4d-40cb-968d-d4b348dfce85",
+          "body": "{\n  \"data\": {\n    \"payees\": [\n      {\n        \"id\": \"{{faker 'datatype.uuid'}}\",\n        \"name\": \"\",\n        \"transfer_account_id\": \"\",\n        \"deleted\": {{faker 'datatype.boolean'}}\n      }\n    ],\n    \"server_knowledge\": {{faker 'datatype.number'}}\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The requested list of payees",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id"
+        },
+        {
+          "uuid": "f10d6673-bce7-407e-a456-2c32bf8ebf5c",
+          "body": "{\n  \"error\": {\n    \"id\": \"\",\n    \"name\": \"\",\n    \"detail\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "No payees were found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id"
+        },
+        {
+          "uuid": "175299a8-6e31-4a5e-9fab-a3df29d481c5",
+          "body": "{\n  \"error\": {\n    \"id\": \"\",\n    \"name\": \"\",\n    \"detail\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "An error occurred",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id"
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "5eeb0967-592a-4bdc-b86d-d870cc009e27",
+      "type": "http",
+      "documentation": "Single payee",
+      "method": "get",
+      "endpoint": "budgets/:budget_id/payees/:payee_id",
+      "responses": [
+        {
+          "uuid": "20bc4143-0138-4ba6-a079-503c7398d295",
+          "body": "{\n  \"data\": {\n    \"payee\": {\n      \"id\": \"{{faker 'datatype.uuid'}}\",\n      \"name\": \"\",\n      \"transfer_account_id\": \"\",\n      \"deleted\": {{faker 'datatype.boolean'}}\n    }\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The requested payee",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id"
+        },
+        {
+          "uuid": "edcd390d-23d1-4f93-b936-c22c6a63b699",
+          "body": "{\n  \"error\": {\n    \"id\": \"\",\n    \"name\": \"\",\n    \"detail\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "The payee was not found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id"
+        },
+        {
+          "uuid": "21e3a01a-ba3a-4607-8be1-662b4789457c",
+          "body": "{\n  \"error\": {\n    \"id\": \"\",\n    \"name\": \"\",\n    \"detail\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "An error occurred",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id"
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "49b2bc7b-87bd-4578-983e-344774c808f6",
+      "type": "http",
+      "documentation": "List payee locations",
+      "method": "get",
+      "endpoint": "budgets/:budget_id/payee_locations",
+      "responses": [
+        {
+          "uuid": "34114834-7209-41ca-b54b-2f6df5db18d2",
+          "body": "{\n  \"data\": {\n    \"payee_locations\": [\n      {\n        \"id\": \"{{faker 'datatype.uuid'}}\",\n        \"payee_id\": \"{{faker 'datatype.uuid'}}\",\n        \"latitude\": \"\",\n        \"longitude\": \"\",\n        \"deleted\": {{faker 'datatype.boolean'}}\n      }\n    ]\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The list of payee locations",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id"
+        },
+        {
+          "uuid": "3477719f-b837-4611-b74e-0435b78642a6",
+          "body": "{\n  \"error\": {\n    \"id\": \"\",\n    \"name\": \"\",\n    \"detail\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "No payees locations were found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id"
+        },
+        {
+          "uuid": "9c93778d-1a9c-488b-98dd-059bd4728f20",
+          "body": "{\n  \"error\": {\n    \"id\": \"\",\n    \"name\": \"\",\n    \"detail\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "An error occurred",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id"
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "10728d54-f6e9-4fc1-a108-c2e2f391bc77",
+      "type": "http",
+      "documentation": "Single payee location",
+      "method": "get",
+      "endpoint": "budgets/:budget_id/payee_locations/:payee_location_id",
+      "responses": [
+        {
+          "uuid": "8dc51590-3031-4882-8dfb-f9deaf5bb486",
+          "body": "{\n  \"data\": {\n    \"payee_location\": {\n      \"id\": \"{{faker 'datatype.uuid'}}\",\n      \"payee_id\": \"{{faker 'datatype.uuid'}}\",\n      \"latitude\": \"\",\n      \"longitude\": \"\",\n      \"deleted\": {{faker 'datatype.boolean'}}\n    }\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The payee location",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id"
+        },
+        {
+          "uuid": "c0f6cf6d-e3a0-4355-8ca1-052a298edd95",
+          "body": "{\n  \"error\": {\n    \"id\": \"\",\n    \"name\": \"\",\n    \"detail\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "The payee location was not found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id"
+        },
+        {
+          "uuid": "4c76383c-337a-4d7f-bada-88f48bd2b16d",
+          "body": "{\n  \"error\": {\n    \"id\": \"\",\n    \"name\": \"\",\n    \"detail\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "An error occurred",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id"
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "45cb5999-3042-4433-ad5b-0139b83881a5",
+      "type": "http",
+      "documentation": "List locations for a payee",
+      "method": "get",
+      "endpoint": "budgets/:budget_id/payees/:payee_id/payee_locations",
+      "responses": [
+        {
+          "uuid": "97a1fdb6-fd6a-4779-84e9-add4e1a54225",
+          "body": "{\n  \"data\": {\n    \"payee_locations\": [\n      {\n        \"id\": \"{{faker 'datatype.uuid'}}\",\n        \"payee_id\": \"{{faker 'datatype.uuid'}}\",\n        \"latitude\": \"\",\n        \"longitude\": \"\",\n        \"deleted\": {{faker 'datatype.boolean'}}\n      }\n    ]\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The list of requested payee locations",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id"
+        },
+        {
+          "uuid": "035c77ab-e2d6-46c8-a030-f32394e23ef6",
+          "body": "{\n  \"error\": {\n    \"id\": \"\",\n    \"name\": \"\",\n    \"detail\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "No payees locations were found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id"
+        },
+        {
+          "uuid": "7addb5a2-e0e4-498e-852d-ca0c8ef20152",
+          "body": "{\n  \"error\": {\n    \"id\": \"\",\n    \"name\": \"\",\n    \"detail\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "An error occurred",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id"
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "1ddff25f-c408-428d-ab36-32f867cdce95",
+      "type": "http",
+      "documentation": "List budget months",
+      "method": "get",
+      "endpoint": "budgets/:budget_id/months",
+      "responses": [
+        {
+          "uuid": "e51c1658-eae4-435b-b245-cdcb50850f15",
+          "body": "{\n  \"data\": {\n    \"months\": [\n      {\n        \"month\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n        \"note\": \"\",\n        \"income\": {{faker 'datatype.number'}},\n        \"budgeted\": {{faker 'datatype.number'}},\n        \"activity\": {{faker 'datatype.number'}},\n        \"to_be_budgeted\": {{faker 'datatype.number'}},\n        \"age_of_money\": {{faker 'datatype.number'}},\n        \"deleted\": {{faker 'datatype.boolean'}}\n      }\n    ],\n    \"server_knowledge\": {{faker 'datatype.number'}}\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The list of budget months",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id"
+        },
+        {
+          "uuid": "8f3f8f27-01f5-4f4a-8e4a-0c1884406ed2",
+          "body": "{\n  \"error\": {\n    \"id\": \"\",\n    \"name\": \"\",\n    \"detail\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "No budget months were found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id"
+        },
+        {
+          "uuid": "1202345c-7056-4526-bd13-45d2fc708d16",
+          "body": "{\n  \"error\": {\n    \"id\": \"\",\n    \"name\": \"\",\n    \"detail\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "An error occurred",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id"
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "78f47b52-4382-4d5b-bba8-8d918ea742a8",
+      "type": "http",
+      "documentation": "Single budget month",
+      "method": "get",
+      "endpoint": "budgets/:budget_id/months/:month",
+      "responses": [
+        {
+          "uuid": "33a79e10-8dba-426a-91dd-0555c267b36a",
+          "body": "{\n  \"data\": {\n    \"month\": {\n      \"month\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n      \"note\": \"\",\n      \"income\": {{faker 'datatype.number'}},\n      \"budgeted\": {{faker 'datatype.number'}},\n      \"activity\": {{faker 'datatype.number'}},\n      \"to_be_budgeted\": {{faker 'datatype.number'}},\n      \"age_of_money\": {{faker 'datatype.number'}},\n      \"deleted\": {{faker 'datatype.boolean'}}\n    }\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The budget month detail",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id"
+        },
+        {
+          "uuid": "3e9eef06-726b-410c-9f56-6c70d2712afd",
+          "body": "{\n  \"error\": {\n    \"id\": \"\",\n    \"name\": \"\",\n    \"detail\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "The budget month was not found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id"
+        },
+        {
+          "uuid": "79a0a4fe-4144-4ae6-8f91-d794cc464a12",
+          "body": "{\n  \"error\": {\n    \"id\": \"\",\n    \"name\": \"\",\n    \"detail\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "An error occurred",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id"
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "20bffae6-c8ca-4371-9ccb-dd5dac0f391f",
+      "type": "http",
+      "documentation": "List transactions",
+      "method": "get",
+      "endpoint": "budgets/:budget_id/transactions",
+      "responses": [
+        {
+          "uuid": "0f9f7ffa-5dfd-4f5e-85fc-c5fcd659bcf4",
+          "body": "{\n  \"data\": {\n    \"transactions\": [\n      {\n        \"id\": \"\",\n        \"date\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n        \"amount\": {{faker 'datatype.number'}},\n        \"memo\": \"\",\n        \"cleared\": \"{{oneOf (array 'cleared' 'uncleared' 'reconciled')}}\",\n        \"approved\": {{faker 'datatype.boolean'}},\n        \"flag_color\": \"{{oneOf (array 'red' 'orange' 'yellow' 'green' 'blue' 'purple' '')}}\",\n        \"account_id\": \"{{faker 'datatype.uuid'}}\",\n        \"payee_id\": \"{{faker 'datatype.uuid'}}\",\n        \"category_id\": \"{{faker 'datatype.uuid'}}\",\n        \"transfer_account_id\": \"{{faker 'datatype.uuid'}}\",\n        \"transfer_transaction_id\": \"\",\n        \"matched_transaction_id\": \"\",\n        \"import_id\": \"\",\n        \"import_payee_name\": \"\",\n        \"import_payee_name_original\": \"\",\n        \"debt_transaction_type\": \"{{oneOf (array 'payment' 'refund' 'fee' 'interest' 'escrow' 'balanceAdjustment' 'credit' 'charge' '')}}\",\n        \"deleted\": {{faker 'datatype.boolean'}}\n      }\n    ],\n    \"server_knowledge\": {{faker 'datatype.number'}}\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The list of requested transactions",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id"
+        },
+        {
+          "uuid": "8eaefdd0-5af1-419f-adf2-f8774281ac47",
+          "body": "{\n  \"error\": {\n    \"id\": \"\",\n    \"name\": \"\",\n    \"detail\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "An error occurred",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id"
+        },
+        {
+          "uuid": "cf3f3cd9-7f4a-4231-bd32-eff126ec26eb",
+          "body": "{\n  \"error\": {\n    \"id\": \"\",\n    \"name\": \"\",\n    \"detail\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "No transactions were found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id"
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "63d34dec-ef70-478d-b393-1e500250fbd4",
+      "type": "http",
+      "documentation": "Create a single transaction or multiple transactions",
+      "method": "post",
+      "endpoint": "budgets/:budget_id/transactions",
+      "responses": [
+        {
+          "uuid": "2cd25425-d795-4c4a-b590-1ea1973b0c85",
+          "body": "{\n  \"data\": {\n    \"transaction_ids\": [\n      \"\"\n    ],\n    \"transaction\": {\n      \"id\": \"\",\n      \"date\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n      \"amount\": {{faker 'datatype.number'}},\n      \"memo\": \"\",\n      \"cleared\": \"{{oneOf (array 'cleared' 'uncleared' 'reconciled')}}\",\n      \"approved\": {{faker 'datatype.boolean'}},\n      \"flag_color\": \"{{oneOf (array 'red' 'orange' 'yellow' 'green' 'blue' 'purple' '')}}\",\n      \"account_id\": \"{{faker 'datatype.uuid'}}\",\n      \"payee_id\": \"{{faker 'datatype.uuid'}}\",\n      \"category_id\": \"{{faker 'datatype.uuid'}}\",\n      \"transfer_account_id\": \"{{faker 'datatype.uuid'}}\",\n      \"transfer_transaction_id\": \"\",\n      \"matched_transaction_id\": \"\",\n      \"import_id\": \"\",\n      \"import_payee_name\": \"\",\n      \"import_payee_name_original\": \"\",\n      \"debt_transaction_type\": \"{{oneOf (array 'payment' 'refund' 'fee' 'interest' 'escrow' 'balanceAdjustment' 'credit' 'charge' '')}}\",\n      \"deleted\": {{faker 'datatype.boolean'}}\n    },\n    \"transactions\": [\n      {\n        \"id\": \"\",\n        \"date\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n        \"amount\": {{faker 'datatype.number'}},\n        \"memo\": \"\",\n        \"cleared\": \"{{oneOf (array 'cleared' 'uncleared' 'reconciled')}}\",\n        \"approved\": {{faker 'datatype.boolean'}},\n        \"flag_color\": \"{{oneOf (array 'red' 'orange' 'yellow' 'green' 'blue' 'purple' '')}}\",\n        \"account_id\": \"{{faker 'datatype.uuid'}}\",\n        \"payee_id\": \"{{faker 'datatype.uuid'}}\",\n        \"category_id\": \"{{faker 'datatype.uuid'}}\",\n        \"transfer_account_id\": \"{{faker 'datatype.uuid'}}\",\n        \"transfer_transaction_id\": \"\",\n        \"matched_transaction_id\": \"\",\n        \"import_id\": \"\",\n        \"import_payee_name\": \"\",\n        \"import_payee_name_original\": \"\",\n        \"debt_transaction_type\": \"{{oneOf (array 'payment' 'refund' 'fee' 'interest' 'escrow' 'balanceAdjustment' 'credit' 'charge' '')}}\",\n        \"deleted\": {{faker 'datatype.boolean'}}\n      }\n    ],\n    \"duplicate_import_ids\": [\n      \"\"\n    ],\n    \"server_knowledge\": {{faker 'datatype.number'}}\n  }\n}",
+          "latency": 0,
+          "statusCode": 201,
+          "label": "The transaction or transactions were successfully created",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id"
+        },
+        {
+          "uuid": "81b75e60-013d-40d5-93dd-367a5c45a3e7",
+          "body": "{\n  \"error\": {\n    \"id\": \"\",\n    \"name\": \"\",\n    \"detail\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "The request could not be understood due to malformed syntax or validation error(s).",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id"
+        },
+        {
+          "uuid": "60b02429-bd57-461a-bad8-79e82edaed49",
+          "body": "{\n  \"error\": {\n    \"id\": \"\",\n    \"name\": \"\",\n    \"detail\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 409,
+          "label": "A transaction on the same account with the same `import_id` already exists.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id"
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "6c8f75e9-358b-4b10-b975-c1abdd12e403",
+      "type": "http",
+      "documentation": "Update multiple transactions",
+      "method": "patch",
+      "endpoint": "budgets/:budget_id/transactions",
+      "responses": [
+        {
+          "uuid": "a225bced-314c-48dc-bd0f-9a5dfe49dc76",
+          "body": "{\n  \"data\": {\n    \"transaction_ids\": [\n      \"\"\n    ],\n    \"transaction\": {\n      \"id\": \"\",\n      \"date\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n      \"amount\": {{faker 'datatype.number'}},\n      \"memo\": \"\",\n      \"cleared\": \"{{oneOf (array 'cleared' 'uncleared' 'reconciled')}}\",\n      \"approved\": {{faker 'datatype.boolean'}},\n      \"flag_color\": \"{{oneOf (array 'red' 'orange' 'yellow' 'green' 'blue' 'purple' '')}}\",\n      \"account_id\": \"{{faker 'datatype.uuid'}}\",\n      \"payee_id\": \"{{faker 'datatype.uuid'}}\",\n      \"category_id\": \"{{faker 'datatype.uuid'}}\",\n      \"transfer_account_id\": \"{{faker 'datatype.uuid'}}\",\n      \"transfer_transaction_id\": \"\",\n      \"matched_transaction_id\": \"\",\n      \"import_id\": \"\",\n      \"import_payee_name\": \"\",\n      \"import_payee_name_original\": \"\",\n      \"debt_transaction_type\": \"{{oneOf (array 'payment' 'refund' 'fee' 'interest' 'escrow' 'balanceAdjustment' 'credit' 'charge' '')}}\",\n      \"deleted\": {{faker 'datatype.boolean'}}\n    },\n    \"transactions\": [\n      {\n        \"id\": \"\",\n        \"date\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n        \"amount\": {{faker 'datatype.number'}},\n        \"memo\": \"\",\n        \"cleared\": \"{{oneOf (array 'cleared' 'uncleared' 'reconciled')}}\",\n        \"approved\": {{faker 'datatype.boolean'}},\n        \"flag_color\": \"{{oneOf (array 'red' 'orange' 'yellow' 'green' 'blue' 'purple' '')}}\",\n        \"account_id\": \"{{faker 'datatype.uuid'}}\",\n        \"payee_id\": \"{{faker 'datatype.uuid'}}\",\n        \"category_id\": \"{{faker 'datatype.uuid'}}\",\n        \"transfer_account_id\": \"{{faker 'datatype.uuid'}}\",\n        \"transfer_transaction_id\": \"\",\n        \"matched_transaction_id\": \"\",\n        \"import_id\": \"\",\n        \"import_payee_name\": \"\",\n        \"import_payee_name_original\": \"\",\n        \"debt_transaction_type\": \"{{oneOf (array 'payment' 'refund' 'fee' 'interest' 'escrow' 'balanceAdjustment' 'credit' 'charge' '')}}\",\n        \"deleted\": {{faker 'datatype.boolean'}}\n      }\n    ],\n    \"duplicate_import_ids\": [\n      \"\"\n    ],\n    \"server_knowledge\": {{faker 'datatype.number'}}\n  }\n}",
+          "latency": 0,
+          "statusCode": 209,
+          "label": "The transactions were successfully updated",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id"
+        },
+        {
+          "uuid": "35d5caca-e380-491c-8983-fc23582aec5c",
+          "body": "{\n  \"error\": {\n    \"id\": \"\",\n    \"name\": \"\",\n    \"detail\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "The request could not be understood due to malformed syntax or validation error(s).",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id"
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "735b0531-62fd-45de-afbf-c892e7e7f0c2",
+      "type": "http",
+      "documentation": "Import transactions",
+      "method": "post",
+      "endpoint": "budgets/:budget_id/transactions/import",
+      "responses": [
+        {
+          "uuid": "c2b467a8-0e7a-4534-bd43-2172099f20d0",
+          "body": "{\n  \"data\": {\n    \"transaction_ids\": [\n      \"\"\n    ]\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The request was successful but there were no transactions to import",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id"
+        },
+        {
+          "uuid": "338aa457-8b09-4577-8c41-a777406202b2",
+          "body": "{\n  \"data\": {\n    \"transaction_ids\": [\n      \"\"\n    ]\n  }\n}",
+          "latency": 0,
+          "statusCode": 201,
+          "label": "One or more transactions were imported successfully",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id"
+        },
+        {
+          "uuid": "ad3d37be-9854-4266-9023-b1538fb8851a",
+          "body": "{\n  \"error\": {\n    \"id\": \"\",\n    \"name\": \"\",\n    \"detail\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "The request could not be understood due to malformed syntax or validation error(s)",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id"
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "06de85a7-f439-447a-b479-616f2b2fe633",
+      "type": "http",
+      "documentation": "Single transaction",
+      "method": "get",
+      "endpoint": "budgets/:budget_id/transactions/:transaction_id",
+      "responses": [
+        {
+          "uuid": "c12408d3-8bb0-4ec1-9432-8b62e95e094d",
+          "body": "{\n  \"data\": {\n    \"transaction\": {\n      \"id\": \"\",\n      \"date\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n      \"amount\": {{faker 'datatype.number'}},\n      \"memo\": \"\",\n      \"cleared\": \"{{oneOf (array 'cleared' 'uncleared' 'reconciled')}}\",\n      \"approved\": {{faker 'datatype.boolean'}},\n      \"flag_color\": \"{{oneOf (array 'red' 'orange' 'yellow' 'green' 'blue' 'purple' '')}}\",\n      \"account_id\": \"{{faker 'datatype.uuid'}}\",\n      \"payee_id\": \"{{faker 'datatype.uuid'}}\",\n      \"category_id\": \"{{faker 'datatype.uuid'}}\",\n      \"transfer_account_id\": \"{{faker 'datatype.uuid'}}\",\n      \"transfer_transaction_id\": \"\",\n      \"matched_transaction_id\": \"\",\n      \"import_id\": \"\",\n      \"import_payee_name\": \"\",\n      \"import_payee_name_original\": \"\",\n      \"debt_transaction_type\": \"{{oneOf (array 'payment' 'refund' 'fee' 'interest' 'escrow' 'balanceAdjustment' 'credit' 'charge' '')}}\",\n      \"deleted\": {{faker 'datatype.boolean'}}\n    }\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The requested transaction",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id"
+        },
+        {
+          "uuid": "bb1ebe83-9a46-43c1-b83e-e37f912e7cae",
+          "body": "{\n  \"error\": {\n    \"id\": \"\",\n    \"name\": \"\",\n    \"detail\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "The transaction was not found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id"
+        },
+        {
+          "uuid": "96dee013-8ee7-446f-b297-0e9f8fdbc1cf",
+          "body": "{\n  \"error\": {\n    \"id\": \"\",\n    \"name\": \"\",\n    \"detail\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "An error occurred",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id"
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "8f4ad7c6-f607-4be8-99cb-79a2a345449c",
+      "type": "http",
+      "documentation": "Updates an existing transaction",
+      "method": "put",
+      "endpoint": "budgets/:budget_id/transactions/:transaction_id",
+      "responses": [
+        {
+          "uuid": "5cbafa5c-a2ae-4672-8f17-5147b1be8352",
+          "body": "{\n  \"data\": {\n    \"transaction\": {\n      \"id\": \"\",\n      \"date\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n      \"amount\": {{faker 'datatype.number'}},\n      \"memo\": \"\",\n      \"cleared\": \"{{oneOf (array 'cleared' 'uncleared' 'reconciled')}}\",\n      \"approved\": {{faker 'datatype.boolean'}},\n      \"flag_color\": \"{{oneOf (array 'red' 'orange' 'yellow' 'green' 'blue' 'purple' '')}}\",\n      \"account_id\": \"{{faker 'datatype.uuid'}}\",\n      \"payee_id\": \"{{faker 'datatype.uuid'}}\",\n      \"category_id\": \"{{faker 'datatype.uuid'}}\",\n      \"transfer_account_id\": \"{{faker 'datatype.uuid'}}\",\n      \"transfer_transaction_id\": \"\",\n      \"matched_transaction_id\": \"\",\n      \"import_id\": \"\",\n      \"import_payee_name\": \"\",\n      \"import_payee_name_original\": \"\",\n      \"debt_transaction_type\": \"{{oneOf (array 'payment' 'refund' 'fee' 'interest' 'escrow' 'balanceAdjustment' 'credit' 'charge' '')}}\",\n      \"deleted\": {{faker 'datatype.boolean'}}\n    }\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The transaction was successfully updated",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id"
+        },
+        {
+          "uuid": "bbaf1c10-fd0c-4044-aee7-31f329f00e0f",
+          "body": "{\n  \"error\": {\n    \"id\": \"\",\n    \"name\": \"\",\n    \"detail\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "The request could not be understood due to malformed syntax or validation error(s)",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id"
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "49dd1e2a-61f1-4e9e-99c4-c386b8a10b84",
+      "type": "http",
+      "documentation": "Deletes an existing transaction",
+      "method": "delete",
+      "endpoint": "budgets/:budget_id/transactions/:transaction_id",
+      "responses": [
+        {
+          "uuid": "37436b49-72a3-4ad8-a81b-eef818ddc976",
+          "body": "{\n  \"data\": {\n    \"transaction\": {\n      \"id\": \"\",\n      \"date\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n      \"amount\": {{faker 'datatype.number'}},\n      \"memo\": \"\",\n      \"cleared\": \"{{oneOf (array 'cleared' 'uncleared' 'reconciled')}}\",\n      \"approved\": {{faker 'datatype.boolean'}},\n      \"flag_color\": \"{{oneOf (array 'red' 'orange' 'yellow' 'green' 'blue' 'purple' '')}}\",\n      \"account_id\": \"{{faker 'datatype.uuid'}}\",\n      \"payee_id\": \"{{faker 'datatype.uuid'}}\",\n      \"category_id\": \"{{faker 'datatype.uuid'}}\",\n      \"transfer_account_id\": \"{{faker 'datatype.uuid'}}\",\n      \"transfer_transaction_id\": \"\",\n      \"matched_transaction_id\": \"\",\n      \"import_id\": \"\",\n      \"import_payee_name\": \"\",\n      \"import_payee_name_original\": \"\",\n      \"debt_transaction_type\": \"{{oneOf (array 'payment' 'refund' 'fee' 'interest' 'escrow' 'balanceAdjustment' 'credit' 'charge' '')}}\",\n      \"deleted\": {{faker 'datatype.boolean'}}\n    }\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The transaction was successfully deleted",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id"
+        },
+        {
+          "uuid": "237f2c87-d7a5-47e1-a419-412d12298504",
+          "body": "{\n  \"error\": {\n    \"id\": \"\",\n    \"name\": \"\",\n    \"detail\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "The transaction was not found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id"
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "0d16f34c-c626-4b70-b6b3-8e95db917ef5",
+      "type": "http",
+      "documentation": "List account transactions",
+      "method": "get",
+      "endpoint": "budgets/:budget_id/accounts/:account_id/transactions",
+      "responses": [
+        {
+          "uuid": "3d353f58-7257-490b-9e07-c156bc712110",
+          "body": "{\n  \"data\": {\n    \"transactions\": [\n      {\n        \"id\": \"\",\n        \"date\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n        \"amount\": {{faker 'datatype.number'}},\n        \"memo\": \"\",\n        \"cleared\": \"{{oneOf (array 'cleared' 'uncleared' 'reconciled')}}\",\n        \"approved\": {{faker 'datatype.boolean'}},\n        \"flag_color\": \"{{oneOf (array 'red' 'orange' 'yellow' 'green' 'blue' 'purple' '')}}\",\n        \"account_id\": \"{{faker 'datatype.uuid'}}\",\n        \"payee_id\": \"{{faker 'datatype.uuid'}}\",\n        \"category_id\": \"{{faker 'datatype.uuid'}}\",\n        \"transfer_account_id\": \"{{faker 'datatype.uuid'}}\",\n        \"transfer_transaction_id\": \"\",\n        \"matched_transaction_id\": \"\",\n        \"import_id\": \"\",\n        \"import_payee_name\": \"\",\n        \"import_payee_name_original\": \"\",\n        \"debt_transaction_type\": \"{{oneOf (array 'payment' 'refund' 'fee' 'interest' 'escrow' 'balanceAdjustment' 'credit' 'charge' '')}}\",\n        \"deleted\": {{faker 'datatype.boolean'}}\n      }\n    ],\n    \"server_knowledge\": {{faker 'datatype.number'}}\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The list of requested transactions",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id"
+        },
+        {
+          "uuid": "9891af17-3d80-4c36-a636-4ba8217ff496",
+          "body": "{\n  \"error\": {\n    \"id\": \"\",\n    \"name\": \"\",\n    \"detail\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "No transactions were found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id"
+        },
+        {
+          "uuid": "b216aa2c-7067-4235-a689-137e509d7e6c",
+          "body": "{\n  \"error\": {\n    \"id\": \"\",\n    \"name\": \"\",\n    \"detail\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "An error occurred",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id"
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "bfdc51ec-6bc7-4d4c-ba25-89c6641b8183",
+      "type": "http",
+      "documentation": "List category transactions",
+      "method": "get",
+      "endpoint": "budgets/:budget_id/categories/:category_id/transactions",
+      "responses": [
+        {
+          "uuid": "3b969798-ca0e-4ee0-9bd6-0b1795002eb9",
+          "body": "{\n  \"data\": {\n    \"transactions\": [\n      {\n        \"id\": \"\",\n        \"date\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n        \"amount\": {{faker 'datatype.number'}},\n        \"memo\": \"\",\n        \"cleared\": \"{{oneOf (array 'cleared' 'uncleared' 'reconciled')}}\",\n        \"approved\": {{faker 'datatype.boolean'}},\n        \"flag_color\": \"{{oneOf (array 'red' 'orange' 'yellow' 'green' 'blue' 'purple' '')}}\",\n        \"account_id\": \"{{faker 'datatype.uuid'}}\",\n        \"payee_id\": \"{{faker 'datatype.uuid'}}\",\n        \"category_id\": \"{{faker 'datatype.uuid'}}\",\n        \"transfer_account_id\": \"{{faker 'datatype.uuid'}}\",\n        \"transfer_transaction_id\": \"\",\n        \"matched_transaction_id\": \"\",\n        \"import_id\": \"\",\n        \"import_payee_name\": \"\",\n        \"import_payee_name_original\": \"\",\n        \"debt_transaction_type\": \"{{oneOf (array 'payment' 'refund' 'fee' 'interest' 'escrow' 'balanceAdjustment' 'credit' 'charge' '')}}\",\n        \"deleted\": {{faker 'datatype.boolean'}}\n      }\n    ],\n    \"server_knowledge\": {{faker 'datatype.number'}}\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The list of requested transactions",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id"
+        },
+        {
+          "uuid": "499d20b7-b4e5-4342-9545-d6574518cc52",
+          "body": "{\n  \"error\": {\n    \"id\": \"\",\n    \"name\": \"\",\n    \"detail\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "No transactions were found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id"
+        },
+        {
+          "uuid": "99974e6f-481e-4fb0-9786-523af30635f8",
+          "body": "{\n  \"error\": {\n    \"id\": \"\",\n    \"name\": \"\",\n    \"detail\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "An error occurred",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id"
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "5172d5f2-86ed-4e65-bcb7-d3dc93c62a47",
+      "type": "http",
+      "documentation": "List payee transactions",
+      "method": "get",
+      "endpoint": "budgets/:budget_id/payees/:payee_id/transactions",
+      "responses": [
+        {
+          "uuid": "e734d7ca-5f7b-47e6-8222-339c483e0cf3",
+          "body": "{\n  \"data\": {\n    \"transactions\": [\n      {\n        \"id\": \"\",\n        \"date\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n        \"amount\": {{faker 'datatype.number'}},\n        \"memo\": \"\",\n        \"cleared\": \"{{oneOf (array 'cleared' 'uncleared' 'reconciled')}}\",\n        \"approved\": {{faker 'datatype.boolean'}},\n        \"flag_color\": \"{{oneOf (array 'red' 'orange' 'yellow' 'green' 'blue' 'purple' '')}}\",\n        \"account_id\": \"{{faker 'datatype.uuid'}}\",\n        \"payee_id\": \"{{faker 'datatype.uuid'}}\",\n        \"category_id\": \"{{faker 'datatype.uuid'}}\",\n        \"transfer_account_id\": \"{{faker 'datatype.uuid'}}\",\n        \"transfer_transaction_id\": \"\",\n        \"matched_transaction_id\": \"\",\n        \"import_id\": \"\",\n        \"import_payee_name\": \"\",\n        \"import_payee_name_original\": \"\",\n        \"debt_transaction_type\": \"{{oneOf (array 'payment' 'refund' 'fee' 'interest' 'escrow' 'balanceAdjustment' 'credit' 'charge' '')}}\",\n        \"deleted\": {{faker 'datatype.boolean'}}\n      }\n    ],\n    \"server_knowledge\": {{faker 'datatype.number'}}\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The list of requested transactions",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id"
+        },
+        {
+          "uuid": "1f327512-eaab-4c75-882d-086c7d567fef",
+          "body": "{\n  \"error\": {\n    \"id\": \"\",\n    \"name\": \"\",\n    \"detail\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "No transactions were found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id"
+        },
+        {
+          "uuid": "cc580a17-91e8-45b7-bafa-f03867f70714",
+          "body": "{\n  \"error\": {\n    \"id\": \"\",\n    \"name\": \"\",\n    \"detail\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "An error occurred",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id"
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "b5b00650-4e3e-4833-a28e-9500df6afaaa",
+      "type": "http",
+      "documentation": "List scheduled transactions",
+      "method": "get",
+      "endpoint": "budgets/:budget_id/scheduled_transactions",
+      "responses": [
+        {
+          "uuid": "a53039ee-0aa2-44f9-8bd7-040963b1f416",
+          "body": "{\n  \"data\": {\n    \"scheduled_transactions\": [\n      {\n        \"id\": \"{{faker 'datatype.uuid'}}\",\n        \"date_first\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n        \"date_next\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n        \"frequency\": \"{{oneOf (array 'never' 'daily' 'weekly' 'everyOtherWeek' 'twiceAMonth' 'every4Weeks' 'monthly' 'everyOtherMonth' 'every3Months' 'every4Months' 'twiceAYear' 'yearly' 'everyOtherYear')}}\",\n        \"amount\": {{faker 'datatype.number'}},\n        \"memo\": \"\",\n        \"flag_color\": \"{{oneOf (array 'red' 'orange' 'yellow' 'green' 'blue' 'purple' '')}}\",\n        \"account_id\": \"{{faker 'datatype.uuid'}}\",\n        \"payee_id\": \"{{faker 'datatype.uuid'}}\",\n        \"category_id\": \"{{faker 'datatype.uuid'}}\",\n        \"transfer_account_id\": \"{{faker 'datatype.uuid'}}\",\n        \"deleted\": {{faker 'datatype.boolean'}}\n      }\n    ],\n    \"server_knowledge\": {{faker 'datatype.number'}}\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The list of requested scheduled transactions",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id"
+        },
+        {
+          "uuid": "40c5d2ee-29bb-477b-8675-461b5eb12bcc",
+          "body": "{\n  \"error\": {\n    \"id\": \"\",\n    \"name\": \"\",\n    \"detail\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "No scheduled transactions were found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id"
+        },
+        {
+          "uuid": "c4f4c4fa-e162-494c-98f0-79bf76f9ceae",
+          "body": "{\n  \"error\": {\n    \"id\": \"\",\n    \"name\": \"\",\n    \"detail\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "An error occurred",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id"
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "49d3d2e4-924a-4e9c-82d0-2ec2d7b67464",
+      "type": "http",
+      "documentation": "Single scheduled transaction",
+      "method": "get",
+      "endpoint": "budgets/:budget_id/scheduled_transactions/:scheduled_transaction_id",
+      "responses": [
+        {
+          "uuid": "c57dc7a7-897b-4876-b023-65197b28a3dd",
+          "body": "{\n  \"data\": {\n    \"scheduled_transaction\": {\n      \"id\": \"{{faker 'datatype.uuid'}}\",\n      \"date_first\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n      \"date_next\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n      \"frequency\": \"{{oneOf (array 'never' 'daily' 'weekly' 'everyOtherWeek' 'twiceAMonth' 'every4Weeks' 'monthly' 'everyOtherMonth' 'every3Months' 'every4Months' 'twiceAYear' 'yearly' 'everyOtherYear')}}\",\n      \"amount\": {{faker 'datatype.number'}},\n      \"memo\": \"\",\n      \"flag_color\": \"{{oneOf (array 'red' 'orange' 'yellow' 'green' 'blue' 'purple' '')}}\",\n      \"account_id\": \"{{faker 'datatype.uuid'}}\",\n      \"payee_id\": \"{{faker 'datatype.uuid'}}\",\n      \"category_id\": \"{{faker 'datatype.uuid'}}\",\n      \"transfer_account_id\": \"{{faker 'datatype.uuid'}}\",\n      \"deleted\": {{faker 'datatype.boolean'}}\n    }\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The requested Scheduled Transaction",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id"
+        },
+        {
+          "uuid": "96a5c602-001d-4da9-9b3d-6ab6e88ec96b",
+          "body": "{\n  \"error\": {\n    \"id\": \"\",\n    \"name\": \"\",\n    \"detail\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "The scheduled transaction was not found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id"
+        },
+        {
+          "uuid": "fbda469b-b665-4aa4-9003-ed832033cca6",
+          "body": "{\n  \"error\": {\n    \"id\": \"\",\n    \"name\": \"\",\n    \"detail\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "An error occurred",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id"
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    }
+  ],
+  "rootChildren": [
+    {
+      "type": "route",
+      "uuid": "334842db-cd76-4c5e-bb70-3e3dd6f1d08b"
+    },
+    {
+      "type": "route",
+      "uuid": "9b740082-021c-4b88-8883-4d49d22677e8"
+    },
+    {
+      "type": "route",
+      "uuid": "daf87552-1cd7-4f9d-8125-36335f5d3efb"
+    },
+    {
+      "type": "route",
+      "uuid": "a5ff343c-3e47-45f0-a3a4-5e100bbb04f4"
+    },
+    {
+      "type": "route",
+      "uuid": "4b286a9d-49f9-43b2-9ab3-294ee8db2dba"
+    },
+    {
+      "type": "route",
+      "uuid": "cee2f529-4836-4e66-bdbd-41d13a7317fd"
+    },
+    {
+      "type": "route",
+      "uuid": "13f04fa0-ce7c-42eb-831e-22a641b9c42e"
+    },
+    {
+      "type": "route",
+      "uuid": "ebbbc892-1697-4dc3-875b-966f42232023"
+    },
+    {
+      "type": "route",
+      "uuid": "5250b2ea-2b96-445a-89eb-365076761c6b"
+    },
+    {
+      "type": "route",
+      "uuid": "e65f70f5-74fe-45b6-8afa-18fc4e1c871a"
+    },
+    {
+      "type": "route",
+      "uuid": "1423ae18-c074-4843-b3f5-d3ea58a1d865"
+    },
+    {
+      "type": "route",
+      "uuid": "1fd2f09a-23ae-40b8-b278-d088532a24b4"
+    },
+    {
+      "type": "route",
+      "uuid": "068ef144-c7d3-4ce5-ac3a-f4ce0d48b5cc"
+    },
+    {
+      "type": "route",
+      "uuid": "5eeb0967-592a-4bdc-b86d-d870cc009e27"
+    },
+    {
+      "type": "route",
+      "uuid": "49b2bc7b-87bd-4578-983e-344774c808f6"
+    },
+    {
+      "type": "route",
+      "uuid": "10728d54-f6e9-4fc1-a108-c2e2f391bc77"
+    },
+    {
+      "type": "route",
+      "uuid": "45cb5999-3042-4433-ad5b-0139b83881a5"
+    },
+    {
+      "type": "route",
+      "uuid": "1ddff25f-c408-428d-ab36-32f867cdce95"
+    },
+    {
+      "type": "route",
+      "uuid": "78f47b52-4382-4d5b-bba8-8d918ea742a8"
+    },
+    {
+      "type": "route",
+      "uuid": "20bffae6-c8ca-4371-9ccb-dd5dac0f391f"
+    },
+    {
+      "type": "route",
+      "uuid": "63d34dec-ef70-478d-b393-1e500250fbd4"
+    },
+    {
+      "type": "route",
+      "uuid": "6c8f75e9-358b-4b10-b975-c1abdd12e403"
+    },
+    {
+      "type": "route",
+      "uuid": "735b0531-62fd-45de-afbf-c892e7e7f0c2"
+    },
+    {
+      "type": "route",
+      "uuid": "06de85a7-f439-447a-b479-616f2b2fe633"
+    },
+    {
+      "type": "route",
+      "uuid": "8f4ad7c6-f607-4be8-99cb-79a2a345449c"
+    },
+    {
+      "type": "route",
+      "uuid": "49dd1e2a-61f1-4e9e-99c4-c386b8a10b84"
+    },
+    {
+      "type": "route",
+      "uuid": "0d16f34c-c626-4b70-b6b3-8e95db917ef5"
+    },
+    {
+      "type": "route",
+      "uuid": "bfdc51ec-6bc7-4d4c-ba25-89c6641b8183"
+    },
+    {
+      "type": "route",
+      "uuid": "5172d5f2-86ed-4e65-bcb7-d3dc93c62a47"
+    },
+    {
+      "type": "route",
+      "uuid": "b5b00650-4e3e-4833-a28e-9500df6afaaa"
+    },
+    {
+      "type": "route",
+      "uuid": "49d3d2e4-924a-4e9c-82d0-2ec2d7b67464"
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "data": []
+}
