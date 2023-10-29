@@ -1,8 +1,7 @@
-import YnabService from "@/app/ynab/YnabService";
+import YnabProvider from "@/app/providers/YnabProvider";
 import { NextResponse } from "next/server";
 
-// todo: use provider for dependency injection instead
-let ynabService = new YnabService();
+let ynabService = YnabProvider.getInstance();
 
 export async function GET() {
   let res = await ynabService.getCurrentUser();
