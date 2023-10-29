@@ -1,5 +1,5 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
-import { CurrentUserResponse } from "./data";
+import { CurrentUserResponse } from "./api-dto";
 
 export default class YnabService {
   config: AxiosRequestConfig;
