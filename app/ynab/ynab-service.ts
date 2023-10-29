@@ -1,5 +1,5 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
-import { CurrentUserResponse } from "./api-dto";
+import { Budgets, CurrentUserResponse, Transactions } from "./api-dto";
 
 export default class YnabService {
   config: AxiosRequestConfig;
@@ -23,7 +23,14 @@ export default class YnabService {
     return this.client.get<CurrentUserResponse>("/user");
   }
 
-  getCurrentBudget() {
-    return this.client.get("/budgets");
+  getBudgetSummary() {
+    return this.client.get<Budgets.MultiResponse>("/budgets");
+  }
+
+  getAllTransactions(budgetId: string) {
+    // return Promise.resolve({ data: { data: { budgetId } } });
+    return this.client.get<Transactions.MultiResponse>(
+      `/budgets/${budgetId}/transactions`
+    );
   }
 }
