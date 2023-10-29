@@ -15,22 +15,22 @@ export type CurrentUserResponse = Schemas["UserResponse"];
 
 export namespace Budgets {
   // GET /budgets
-  export type BudgetSummaryResponse = Schemas["BudgetSummaryResponse"];
+  export type MultiResponse = Schemas["BudgetSummaryResponse"];
 
   // GET /budget/:budget_id
-  export type BudgetDetailResponse = Schemas["BudgetDetailResponse"];
+  export type Response = Schemas["BudgetDetailResponse"];
 }
 
 export namespace Accounts {
   // GET /budget/:budget_id/accounts
-  export type AccountsResponse = Schemas["AccountsResponse"];
+  export type MultiResponse = Schemas["AccountsResponse"];
 
   // POST /budget/:budget_id/accounts
-  export type AccountPostRequest = Schemas["PostAccountWrapper"];
-  export type AccountPostResponse = AccountResponse;
+  export type PostRequest = Schemas["PostAccountWrapper"];
 
+  // POST /budget/:budget_id/accounts
   // GET /budget/:budget_id/accounts/:account_id
-  export type AccountResponse = Schemas["AccountResponse"];
+  export type Response = Schemas["AccountResponse"];
 }
 
 export namespace Categories {
@@ -39,27 +39,27 @@ export namespace Categories {
 
 export namespace Transactions {
   // GET /budgets/:budget_id/transactions
-  export type TransactionsResponse = Schemas["TransactionsResponse"];
+  export type MultiResponse = Schemas["TransactionsResponse"];
 
   // POST /budgets/:budget_id/transactions
-  export type TransactionsPostRequest = Schemas["PostTransactionsWrapper"];
-  export type TransactionsPostResponse = Schemas["SaveTransactionsResponse"];
+  export type PostRequest = Schemas["PostTransactionsWrapper"];
+  export type PostResponse = Schemas["SaveTransactionsResponse"];
 
   // PATCH /budgets/:budget_id/transactions
-  export type TransactionsPatchRequest = Schemas["PatchTransactionsWrapper"];
-  export type TransactionsPatchResponse = Schemas["SaveTransactionsResponse"];
+  export type PatchRequest = Schemas["PatchTransactionsWrapper"];
+  export type PatchResponse = Schemas["SaveTransactionsResponse"];
 
   // GET /budgets/:budget_id/transactions/:transaction_id
   // GET /budgets/:budget_id/accounts/:transaction_id
-  export type TransactionResponse = Schemas["TransactionResponse"];
+  export type Response = Schemas["TransactionResponse"];
 
   // PUT /budgets/:budget_id/transactions/:transaction_id
-  export type TransactionPutRequest = Schemas["PutTransactionWrapper"];
-  export type TransactionPutResponse = Schemas["SaveTransaction"];
+  export type PutRequest = Schemas["PutTransactionWrapper"];
+  export type PutResponse = Schemas["SaveTransaction"];
 
   // GET /budgets/:budget_id/categories/:transaction_id
   // GET /budgets/:budget_id/payees/:transaction_id
-  export type HybridTransactionResponse = Schemas["HybridTransactionsResponse"];
+  export type HybridMultiResponse = Schemas["HybridTransactionsResponse"];
 }
 
 // Domain
