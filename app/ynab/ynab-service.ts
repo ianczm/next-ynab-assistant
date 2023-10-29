@@ -1,5 +1,5 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
-import { UserResponse } from "./data";
+import { CurrentUserResponse } from "./data";
 
 export default class YnabService {
   config: AxiosRequestConfig;
@@ -20,7 +20,7 @@ export default class YnabService {
   }
 
   getCurrentUser() {
-    return this.client.get<UserResponse>("/user");
+    return this.client.get<CurrentUserResponse>("/user");
   }
 
   getCurrentBudget() {
