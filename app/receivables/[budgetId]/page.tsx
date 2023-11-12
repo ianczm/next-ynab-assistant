@@ -2,28 +2,35 @@ import { ReceivablesService } from "@/app/services/receivables-service";
 import ReceivablesProvider from "@/app/providers/receivables-provider";
 
 export default async function ReceivablesPage({ params }: Readonly<{ params: { budgetId: string } }>) {
-  const receivablesService: ReceivablesService = ReceivablesProvider.getInstance();
-  const payees = await receivablesService.getReceivables(params.budgetId);
-
   function buildCurrencyString(amount: number) {
     let result = (Math.abs(amount) / 1000).toFixed(2);
     return amount < 0 ? `(${result})` : result;
   }
 
+  const receivablesService: ReceivablesService = ReceivablesProvider.getInstance();
+  const payees = await receivablesService.getReceivables(params.budgetId);
+  const totalOutstandingAmount = payees.reduce((amount, payee) => payee.outstandingAmount + amount, 0);
+
   return (
     <main className="flex flex-col min-h-screen p-36">
       <div className="mb-20">
-        <p>This is the receivables page of budget: {params.budgetId}</p>
+        <p>
+          <b>Budget</b>: {params.budgetId}
+        </p>
+        <p>
+          <b>Outstanding amount</b>: {buildCurrencyString(totalOutstandingAmount)}
+        </p>
       </div>
       <div>
         <ul className="flex flex-col gap-8">
           {payees
             .filter((payee) => payee.outstandingAmount !== 0)
+            .sort((pa, pb) => pa.outstandingAmount - pb.outstandingAmount)
             .map((payee) => (
-              <li key={payee.payeeId} data-payeeId={payee.payeeId}>
+              <li key={payee.payeeId} data-payee-id={payee.payeeId}>
                 <div className="flex justify-between">
                   <b>{payee.payeeName}</b>
-                  <p data-isNegative={payee.outstandingAmount < 0}>{buildCurrencyString(payee.outstandingAmount)}</p>
+                  <p data-is-negative={payee.outstandingAmount < 0}>{buildCurrencyString(payee.outstandingAmount)}</p>
                 </div>
                 <ul className="pl-8">
                   {payee.occasions
@@ -32,20 +39,20 @@ export default async function ReceivablesPage({ params }: Readonly<{ params: { b
                       <li key={occasion.memo}>
                         <div className="flex justify-between">
                           <p>{occasion.memo}</p>
-                          <p data-isNegative={occasion.outstandingAmount < 0}>
+                          <p data-is-negative={occasion.outstandingAmount < 0}>
                             {buildCurrencyString(occasion.outstandingAmount)}
                           </p>
                         </div>
                         <ul className="pl-8">
                           {occasion.transactions.map((transaction) => (
-                            <li key={transaction.id} data-transactionId={transaction.id}>
+                            <li key={transaction.id} data-transaction-id={transaction.id}>
                               <div className="flex justify-between">
                                 <p>
                                   {occasion.memo === "Uncombined"
                                     ? ReceivablesService.getMergedMemo(transaction)
                                     : transaction.memo}
                                 </p>
-                                <p data-isNegative={transaction.amount < 0}>
+                                <p data-is-negative={transaction.amount < 0}>
                                   {buildCurrencyString(transaction.amount)}
                                 </p>
                               </div>

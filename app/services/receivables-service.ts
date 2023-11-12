@@ -6,11 +6,11 @@ import YnabService from "@/app/services/ynab-service";
 export class ReceivablesService {
   constructor(readonly ynabService: YnabService) {}
 
-  private static isReceivable(transaction: ExtendedTransaction) {
+  static isReceivable(transaction: ExtendedTransaction) {
     return transaction.category.name === "General Receivables";
   }
 
-  private static isUnresolved(transaction: ExtendedTransaction) {
+  static isUnresolved(transaction: ExtendedTransaction) {
     return transaction.flagColor !== FlagColor.GREEN;
   }
 
