@@ -19,18 +19,17 @@ export default class YnabService {
     };
   }
 
-  getCurrentUser() {
-    return this.client.get<CurrentUserResponse>("/user");
+  async getCurrentUser(): Promise<CurrentUserResponse> {
+    return await this.client.get<CurrentUserResponse>("/user").then((response) => response.data);
   }
 
-  getBudgetSummary() {
-    return this.client.get<Budgets.MultiResponse>("/budgets");
+  async getBudgetSummary(): Promise<Budgets.MultiResponse> {
+    return await this.client.get<Budgets.MultiResponse>("/budgets").then((response) => response.data);
   }
 
-  getAllTransactions(budgetId: string) {
-    // return Promise.resolve({ data: { data: { budgetId } } });
-    return this.client.get<Transactions.MultiResponse>(
-      `/budgets/${budgetId}/transactions`
-    );
+  async getAllTransactions(budgetId: string): Promise<Transactions.MultiResponse> {
+    return await this.client
+      .get<Transactions.MultiResponse>(`/budgets/${budgetId}/transactions`)
+      .then((response) => response.data);
   }
 }

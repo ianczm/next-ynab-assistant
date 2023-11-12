@@ -1,4 +1,4 @@
-import YnabService from "../ynab/ynab-service";
+import YnabService from "@/app/services/ynab-service";
 
 export default class YnabProvider {
   static instance: YnabService | null = null;

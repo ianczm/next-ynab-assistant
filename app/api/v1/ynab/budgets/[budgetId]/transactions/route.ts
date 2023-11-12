@@ -3,11 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 let ynabService = YnabProvider.getInstance();
 
-export async function GET(
-  request: NextRequest,
-  { params }: { params: { budgetId: string } }
-) {
+export async function GET(request: NextRequest, { params }: { params: { budgetId: string } }) {
   let res = await ynabService.getAllTransactions(params.budgetId);
-  return NextResponse.json(res.data.data);
-  // return NextResponse.json(params);
+  return NextResponse.json(res.data);
 }

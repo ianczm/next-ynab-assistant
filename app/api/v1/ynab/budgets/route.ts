@@ -5,5 +5,5 @@ let ynabService = YnabProvider.getInstance();
 
 export async function GET() {
   let res = await ynabService.getBudgetSummary();
-  return NextResponse.json(res.data.data);
+  return NextResponse.json(res.data);
 }
