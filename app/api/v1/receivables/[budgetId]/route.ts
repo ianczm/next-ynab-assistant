@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import ReceivablesProvider from "@/app/providers/receivables-provider";
+import ReceivablesProvider from "@/app/_providers/receivables-provider";
 
 let receivablesService = ReceivablesProvider.getInstance();
 

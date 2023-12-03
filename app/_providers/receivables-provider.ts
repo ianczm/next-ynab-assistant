@@ -1,5 +1,5 @@
-import { ReceivablesService } from "@/app/services/receivables-service";
-import YnabProvider from "@/app/providers/ynab-provider";
+import { ReceivablesService } from "@/app/_services/receivables-service";
+import YnabProvider from "@/app/_providers/ynab-provider";
 
 export default class ReceivablesProvider {
   static instance: ReceivablesService | null = null;

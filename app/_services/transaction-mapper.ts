@@ -1,6 +1,6 @@
-import { SubTransaction, TransactionDetail } from "@/app/services/api-dto";
+import { SubTransaction, TransactionDetail } from "@/app/_services/api-dto";
 import moment from "moment/moment";
-import { ExtendedTransaction, FlagColor, Occasion, Transaction } from "@/app/services/models";
+import { ExtendedTransaction, FlagColor, Occasion, Transaction } from "@/app/_services/models";
 import _ from "lodash";
 
 export class TransactionMapper {

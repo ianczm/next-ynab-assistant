@@ -1,7 +1,7 @@
-import { ExtendedTransaction, FlagColor, Payee, Transaction } from "@/app/services/models";
+import { ExtendedTransaction, FlagColor, Payee, Transaction } from "@/app/_services/models";
 import _ from "lodash";
-import { TransactionMapper } from "@/app/services/transaction-mapper";
-import YnabService from "@/app/services/ynab-service";
+import { TransactionMapper } from "@/app/_services/transaction-mapper";
+import YnabService from "@/app/_services/ynab-service";
 
 export class ReceivablesService {
   constructor(readonly ynabService: YnabService) {}
