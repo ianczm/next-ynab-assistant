@@ -12,7 +12,7 @@ export default async function ReceivablesPage({ params }: Readonly<{ params: { b
   const totalOutstandingAmount = payees.reduce((amount, payee) => payee.outstandingAmount + amount, 0);
 
   return (
-    <main className="flex flex-col min-h-screen p-36">
+    <main className="flex min-h-screen flex-col p-36">
       <div className="mb-20">
         <p>
           <b>Budget</b>: {params.budgetId}
