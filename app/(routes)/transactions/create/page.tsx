@@ -2,14 +2,11 @@
 
 import { cn } from "@/app/_lib/utils";
 import { useRef, useState } from "react";
+import { Toll } from "@/app/_types/tolls";
+import axios from "axios";
 
 const options = ["Eating Out", "Transportation", "Others"];
 const activeOptionIdx = 1;
-
-type Toll = {
-  name: string;
-  amount: number;
-};
 
 const commonTolls: Toll[] = [
   {
@@ -31,16 +28,7 @@ const commonTolls: Toll[] = [
 ];
 
 export default function CreateTransactionPage() {
-  const [addedTolls, setAddedTolls] = useState<Toll[]>([
-    {
-      name: "Batu 9",
-      amount: 1.3,
-    },
-    {
-      name: "Sunway",
-      amount: 2.1,
-    },
-  ]);
+  const [addedTolls, setAddedTolls] = useState<Toll[]>([]);
 
   const otherTollName = useRef<HTMLInputElement>(null);
   const otherTollAmount = useRef<HTMLInputElement>(null);
@@ -50,22 +38,38 @@ export default function CreateTransactionPage() {
   }
 
   function handleOtherTollAdd() {
-    addToll({
-      name: otherTollName.current?.value!,
-      amount: parseFloat(otherTollAmount.current?.value!),
-    });
-    otherTollName.current!.value = "";
-    otherTollAmount.current!.value = "";
+    const name = otherTollName.current?.value;
+    const amount = otherTollAmount.current?.value;
+
+    if (name && amount) {
+      addToll({
+        name: name,
+        amount: parseFloat(amount),
+      });
+      otherTollName.current.value = "";
+      otherTollAmount.current.value = "";
+    }
   }
 
   function handleClear() {
     setAddedTolls([]);
   }
 
-  function handleSave() {
+  async function handleSave() {
     console.log(addedTolls);
+
+    const tollTransactions = await axios
+      .post<{
+        name: string;
+        amount: number;
+        id: string;
+      }>("/api/v1/transactions/create/tolls", addedTolls)
+      .then((response) => response.data)
+      .catch(console.error);
+
+    console.log(tollTransactions);
+
     handleClear();
-    // Todo: add logic to add to YNAB
   }
 
   function computeTotalAmount() {
@@ -77,7 +81,7 @@ export default function CreateTransactionPage() {
       {/* Header */}
       <div className="flex h-44 flex-col justify-end gap-4 bg-gray-950 p-8 pt-0 text-white">
         <p>Create transaction</p>
-        <ul className="flex w-max overflow-hidden rounded-xl bg-gray-900">
+        <ul className="flex w-max overflow-hidden rounded-xl bg-gray-800">
           {options.map((option, idx) => (
             <li
               key={option}
@@ -124,6 +128,8 @@ export default function CreateTransactionPage() {
               <input
                 ref={otherTollAmount}
                 type="number"
+                step="0.01"
+                min="0"
                 placeholder="3.50"
                 className="w-20 rounded-xl rounded-l-none bg-transparent px-4 py-3 text-right font-bold"
               />
@@ -144,21 +150,33 @@ export default function CreateTransactionPage() {
           </div>
           {/* Tolls */}
           <ul className="flex flex-col gap-1">
-            {addedTolls.map((toll) => (
-              <li key={toll.name} className="flex justify-between">
-                <span>{toll.name}</span>
-                <span>{toll.amount.toFixed(2)}</span>
-              </li>
-            ))}
+            {addedTolls.length === 0 ? (
+              <li className="text-gray-400">There are no tolls to preview.</li>
+            ) : (
+              addedTolls.map((toll) => (
+                <li key={toll.name} className="flex justify-between">
+                  <span>{toll.name}</span>
+                  <span>{toll.amount.toFixed(2)}</span>
+                </li>
+              ))
+            )}
           </ul>
         </div>
       </div>
       {/* Button */}
       <div className="fixed bottom-0 flex w-full gap-2 p-8">
-        <button className="w-full rounded-xl border border-gray-400 px-4 py-3 font-bold" onClick={handleClear}>
+        <button
+          className="w-full rounded-xl border border-gray-400 px-4 py-3 font-bold"
+          onClick={handleClear}
+          disabled={addedTolls.length === 0}
+        >
           Clear
         </button>
-        <button className="w-full rounded-xl bg-black px-4 py-3 font-bold text-white" onClick={handleSave}>
+        <button
+          className="w-full rounded-xl bg-black px-4 py-3 font-bold text-white"
+          onClick={handleSave}
+          disabled={addedTolls.length === 0}
+        >
           Save
         </button>
       </div>

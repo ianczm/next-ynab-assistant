@@ -60,6 +60,8 @@ export namespace Transactions {
   // GET /budgets/:budget_id/categories/:transaction_id
   // GET /budgets/:budget_id/payees/:transaction_id
   export type HybridMultiResponse = Schemas["HybridTransactionsResponse"];
+
+  export type SaveTransaction = Schemas["SaveTransaction"];
 }
 
 // Domain
