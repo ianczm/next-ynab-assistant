@@ -47,6 +47,7 @@ export default function CreateTransactionPage() {
 
     if (name && amount) {
       addToll({
+        displayName: name,
         name: name,
         amount: parseFloat(amount),
       });
