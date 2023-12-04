@@ -10,18 +10,22 @@ const activeOptionIdx = 1;
 
 const commonTolls: Toll[] = [
   {
+    displayName: "Sg Long",
     name: "Sg Long",
     amount: 1.66,
   },
   {
-    name: "Mines North",
+    displayName: "Mines North",
+    name: "Sg Besi Mines North",
     amount: 1.85,
   },
   {
+    displayName: "Batu 9",
     name: "Batu 9",
     amount: 1.3,
   },
   {
+    displayName: "Sunway",
     name: "Sunway",
     amount: 2.1,
   },
@@ -103,11 +107,11 @@ export default function CreateTransactionPage() {
           <div className="flex flex-wrap gap-1">
             {commonTolls.map((toll) => (
               <button
-                key={toll.name}
+                key={toll.displayName}
                 className="flex gap-3 rounded-xl border border-gray-400 px-4 py-3"
                 onClick={() => addToll(toll)}
               >
-                <span>{toll.name}</span>
+                <span>{toll.displayName}</span>
                 <span>
                   <b>{toll.amount.toFixed(2)}</b>
                 </span>
@@ -154,8 +158,8 @@ export default function CreateTransactionPage() {
               <li className="text-gray-400">There are no tolls to preview.</li>
             ) : (
               addedTolls.map((toll) => (
-                <li key={toll.name} className="flex justify-between">
-                  <span>{toll.name}</span>
+                <li key={toll.displayName} className="flex justify-between">
+                  <span>{toll.displayName}</span>
                   <span>{toll.amount.toFixed(2)}</span>
                 </li>
               ))
