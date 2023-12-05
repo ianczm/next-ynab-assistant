@@ -1,12 +1,11 @@
 "use client";
 
-import { cn } from "@/app/_lib/utils";
-import { useRef, useState } from "react";
-import { Toll } from "@/app/_types/tolls";
+import { useState } from "react";
+import { Toll } from "@/types/tolls";
 import axios from "axios";
-
-const options = ["Eating Out", "Transportation", "Others"];
-const activeOptionIdx = 1;
+import { Button } from "@nextui-org/button";
+import { Plus } from "lucide-react";
+import { Input } from "@nextui-org/react";
 
 const commonTolls: Toll[] = [
   {
@@ -33,26 +32,22 @@ const commonTolls: Toll[] = [
 
 export default function CreateTransactionPage() {
   const [addedTolls, setAddedTolls] = useState<Toll[]>([]);
-
-  const otherTollName = useRef<HTMLInputElement>(null);
-  const otherTollAmount = useRef<HTMLInputElement>(null);
+  const [tollNameInput, setTollNameInput] = useState<string>("");
+  const [tollAmountInput, setTollAmountInput] = useState<string>("");
 
   function addToll(toll: Toll) {
     setAddedTolls([...addedTolls, toll]);
   }
 
-  function handleOtherTollAdd() {
-    const name = otherTollName.current?.value;
-    const amount = otherTollAmount.current?.value;
-
-    if (name && amount) {
+  function handleAddTollFromInput() {
+    if (tollNameInput && tollAmountInput) {
       addToll({
-        displayName: name,
-        name: name,
-        amount: parseFloat(amount),
+        displayName: tollNameInput,
+        name: tollNameInput,
+        amount: parseFloat(tollAmountInput),
       });
-      otherTollName.current.value = "";
-      otherTollAmount.current.value = "";
+      setTollNameInput("");
+      setTollAmountInput("");
     }
   }
 
@@ -61,19 +56,14 @@ export default function CreateTransactionPage() {
   }
 
   async function handleSave() {
-    console.log(addedTolls);
-
-    const tollTransactions = await axios
+    await axios
       .post<{
         name: string;
         amount: number;
         id: string;
-      }>("/api/v1/transactions/create/tolls", addedTolls)
+      }>("/api/v1/transactions/tolls/create", addedTolls)
       .then((response) => response.data)
       .catch(console.error);
-
-    console.log(tollTransactions);
-
     handleClear();
   }
 
@@ -82,23 +72,7 @@ export default function CreateTransactionPage() {
   }
 
   return (
-    <main className="h-screen bg-gray-50 text-sm text-black">
-      {/* Header */}
-      <div className="flex h-44 flex-col justify-end gap-4 bg-gray-950 p-8 pt-0 text-white">
-        <p>Create transaction</p>
-        <ul className="flex w-max overflow-hidden rounded-xl bg-gray-800">
-          {options.map((option, idx) => (
-            <li
-              key={option}
-              className={cn("rounded-xl px-4 py-3 text-xs", {
-                "bg-gray-50 font-bold text-black": activeOptionIdx === idx,
-              })}
-            >
-              {option}
-            </li>
-          ))}
-        </ul>
-      </div>
+    <>
       {/* Form */}
       <div className="flex flex-col gap-4 p-8 text-xs">
         <span className="text-[0.7rem] uppercase">Select Tolls</span>
@@ -107,16 +81,17 @@ export default function CreateTransactionPage() {
           {/* Tolls */}
           <div className="flex flex-wrap gap-1">
             {commonTolls.map((toll) => (
-              <button
+              <Button
                 key={toll.displayName}
-                className="flex gap-3 rounded-xl border border-gray-400 px-4 py-3"
+                variant="ghost"
+                className="flex gap-3 rounded-xl border border-gray-400 px-4 py-3 text-xs text-gray-950 hover:border-gray-950 hover:!bg-gray-950 hover:text-white"
                 onClick={() => addToll(toll)}
               >
                 <span>{toll.displayName}</span>
                 <span>
                   <b>{toll.amount.toFixed(2)}</b>
                 </span>
-              </button>
+              </Button>
             ))}
           </div>
         </div>
@@ -124,24 +99,43 @@ export default function CreateTransactionPage() {
           <span className="text-xs font-bold">Other tolls</span>
           <div className="flex gap-2">
             <div className="flex flex-grow divide-x divide-gray-400 overflow-hidden rounded-xl border border-gray-400">
-              <input
-                ref={otherTollName}
+              <Input
+                isClearable
+                value={tollNameInput}
+                onValueChange={setTollNameInput}
+                variant="bordered"
                 type="text"
-                placeholder="MEX"
-                className="w-16 flex-grow rounded-xl rounded-r-none bg-transparent px-4 py-3"
+                label="Toll Name"
+                classNames={{
+                  base: "flex-grow !p-0 bg-transparent",
+                  inputWrapper: "px-4 py-3 border-none rounded-xl rounded-r-none",
+                  label: "text-xs",
+                  input: "text-xs",
+                }}
               />
-              <input
-                ref={otherTollAmount}
+              <Input
+                isClearable
+                value={tollAmountInput}
+                onValueChange={setTollAmountInput}
+                variant="bordered"
                 type="number"
                 step="0.01"
                 min="0"
-                placeholder="3.50"
-                className="w-20 rounded-xl rounded-l-none bg-transparent px-4 py-3 text-right font-bold"
+                label="Amount"
+                classNames={{
+                  base: "!p-0 w-32 bg-transparent",
+                  inputWrapper: "px-4 py-3 border-none rounded-xl",
+                  label: "text-xs",
+                  input: "text-xs font-bold",
+                }}
               />
             </div>
-            <button className="w-16 rounded-xl bg-black px-4 py-3 font-bold text-white" onClick={handleOtherTollAdd}>
-              +
-            </button>
+            <Button
+              className="h-auto w-16 rounded-xl bg-gray-950 px-4 py-3 font-bold text-white"
+              onClick={handleAddTollFromInput}
+            >
+              <Plus size={16} strokeWidth={3} />
+            </Button>
           </div>
         </div>
       </div>
@@ -170,21 +164,22 @@ export default function CreateTransactionPage() {
       </div>
       {/* Button */}
       <div className="fixed bottom-0 flex w-full gap-2 p-8">
-        <button
-          className="w-full rounded-xl border border-gray-400 px-4 py-3 font-bold"
+        <Button
+          className="h-auto w-full rounded-xl border border-gray-400 px-4 py-3 font-bold text-gray-950 hover:border-gray-950 hover:!bg-gray-950 hover:text-white"
+          variant="ghost"
           onClick={handleClear}
-          disabled={addedTolls.length === 0}
+          isDisabled={addedTolls.length === 0}
         >
           Clear
-        </button>
-        <button
-          className="w-full rounded-xl bg-black px-4 py-3 font-bold text-white"
+        </Button>
+        <Button
+          className="h-auto w-full rounded-xl bg-gray-950 px-4 py-3 font-bold text-white"
           onClick={handleSave}
-          disabled={addedTolls.length === 0}
+          isDisabled={addedTolls.length === 0}
         >
           Save
-        </button>
+        </Button>
       </div>
-    </main>
+    </>
   );
 }
