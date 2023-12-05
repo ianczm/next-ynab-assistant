@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { Toll, TollSchema } from "@/app/_types/tolls";
-import YnabProvider from "@/app/_providers/ynab-provider";
+import { Toll, TollSchema } from "@/types/tolls";
+import YnabProvider from "@/providers/ynab-provider";
 import { z } from "zod";
 
 let ynab = YnabProvider.getInstance();

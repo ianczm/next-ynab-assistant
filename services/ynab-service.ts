@@ -1,6 +1,6 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
 import { Budgets, CurrentUserResponse, Transactions } from "./api-dto";
-import { Toll } from "@/app/_types/tolls";
+import { Toll } from "@/types/tolls";
 import _ from "lodash";
 import moment from "moment";
 import SaveTransaction = Transactions.SaveTransaction;

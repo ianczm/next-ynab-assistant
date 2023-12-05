@@ -1,4 +1,4 @@
-import YnabProvider from "@/app/_providers/ynab-provider";
+import YnabProvider from "@/providers/ynab-provider";
 import { NextResponse } from "next/server";
 
 let ynabService = YnabProvider.getInstance();

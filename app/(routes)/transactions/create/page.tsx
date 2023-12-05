@@ -2,7 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import { useRef, useState } from "react";
-import { Toll } from "@/app/_types/tolls";
+import { Toll } from "@/types/tolls";
 import axios from "axios";
 
 const options = ["Eating Out", "Transportation", "Others"];

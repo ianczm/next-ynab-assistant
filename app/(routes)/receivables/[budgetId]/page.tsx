@@ -1,5 +1,5 @@
-import { ReceivablesService } from "@/app/_services/receivables-service";
-import ReceivablesProvider from "@/app/_providers/receivables-provider";
+import { ReceivablesService } from "@/services/receivables-service";
+import ReceivablesProvider from "@/providers/receivables-provider";
 
 export default async function ReceivablesPage({ params }: Readonly<{ params: { budgetId: string } }>) {
   function buildCurrencyString(amount: number) {
