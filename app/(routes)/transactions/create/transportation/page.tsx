@@ -3,30 +3,9 @@
 import { useState } from "react";
 import { Toll } from "@/types/tolls";
 import axios from "axios";
-import { Tab, Tabs } from "@nextui-org/tabs";
 import { Button } from "@nextui-org/button";
 import { Plus } from "lucide-react";
 import { Input } from "@nextui-org/react";
-
-const options = [
-  {
-    id: "eating-out",
-    label: "Eating Out",
-    disabled: false,
-  },
-  {
-    id: "transportation",
-    label: "Transportation",
-    disabled: false,
-  },
-  {
-    id: "others",
-    label: "Others",
-    disabled: false,
-  },
-];
-
-const activeOptionId = "transportation";
 
 const commonTolls: Toll[] = [
   {
@@ -77,19 +56,14 @@ export default function CreateTransactionPage() {
   }
 
   async function handleSave() {
-    console.log(addedTolls);
-
-    const tollTransactions = await axios
+    await axios
       .post<{
         name: string;
         amount: number;
         id: string;
-      }>("/api/v1/transactions/create/tolls", addedTolls)
+      }>("/api/v1/transactions/tolls/create", addedTolls)
       .then((response) => response.data)
       .catch(console.error);
-
-    console.log(tollTransactions);
-
     handleClear();
   }
 
@@ -98,24 +72,7 @@ export default function CreateTransactionPage() {
   }
 
   return (
-    <main className="dark h-screen bg-gray-50 text-sm text-gray-950">
-      {/* Header */}
-      <div className="flex h-44 flex-col justify-end gap-4 bg-gray-950 p-8 pt-0 text-white">
-        <p>Create transaction</p>
-        <Tabs
-          defaultSelectedKey={activeOptionId}
-          classNames={{
-            tabList: "rounded-xl bg-gray-800 p-0 gap-0",
-            tab: "px-4 py-3 h-auto rounded-xl",
-            tabContent: "text-xs font-bold text-gray-400 group-data-[selected=true]:text-gray-950",
-            cursor: "dark:bg-white rounded-xl",
-          }}
-        >
-          {options.map((option) => (
-            <Tab key={option.id} id={option.id} title={option.label} isDisabled={option.disabled} />
-          ))}
-        </Tabs>
-      </div>
+    <>
       {/* Form */}
       <div className="flex flex-col gap-4 p-8 text-xs">
         <span className="text-[0.7rem] uppercase">Select Tolls</span>
@@ -223,6 +180,6 @@ export default function CreateTransactionPage() {
           Save
         </Button>
       </div>
-    </main>
+    </>
   );
 }
