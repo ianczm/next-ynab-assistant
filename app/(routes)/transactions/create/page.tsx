@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "@/app/_lib/utils";
+import { cn } from "@/lib/utils";
 import { useRef, useState } from "react";
 import { Toll } from "@/app/_types/tolls";
 import axios from "axios";
