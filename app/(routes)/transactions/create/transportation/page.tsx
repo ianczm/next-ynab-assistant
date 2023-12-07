@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Toll } from "@/types/tolls";
+import { Toll } from "@/types/domain/tolls";
 import axios from "axios";
 import { Button } from "@nextui-org/button";
 import { Plus } from "lucide-react";
