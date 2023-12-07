@@ -24,6 +24,7 @@ export async function POST(request: NextRequest) {
     // Todo: next time should receive budgetId through request
     const { YNAB_DEFAULT_BUDGET_ID } = ConfigProvider.get();
     const addedTolls = await ynab.createTollTransactions(YNAB_DEFAULT_BUDGET_ID, tolls);
+    // Todo: should establish common DTO/contract between client and API that adheres to JSON API specifications
     return NextResponse.json({ transactions: addedTolls });
   }
 }

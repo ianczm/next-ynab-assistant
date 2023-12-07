@@ -55,7 +55,7 @@ export default class YnabService {
         ({
           account_id: ACCOUNT_TNG,
           date: dateToday,
-          amount: currencyToMilliUnits(toll.amount),
+          amount: -1 * currencyToMilliUnits(toll.amount),
           payee_id: PAYEE_TOLLS,
           category_id: CATEGORY_TOLLS,
           memo: toll.name,
@@ -72,7 +72,7 @@ export default class YnabService {
         (response) =>
           response.data.data.transactions?.map((transaction) => ({
             name: transaction.memo,
-            amount: milliUnitsToCurrency(transaction.amount),
+            amount: -1 * milliUnitsToCurrency(transaction.amount),
             id: transaction.id,
           })),
       );

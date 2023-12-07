@@ -1,39 +1,30 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Toll } from "@/types/domain/tolls";
 import axios from "axios";
 import { Button } from "@nextui-org/button";
 import { Plus } from "lucide-react";
 import { Input } from "@nextui-org/react";
-
-const commonTolls: Toll[] = [
-  {
-    displayName: "Sg Long",
-    name: "Sg Long",
-    amount: 1.66,
-  },
-  {
-    displayName: "Mines North",
-    name: "Sg Besi Mines North",
-    amount: 1.85,
-  },
-  {
-    displayName: "Batu 9",
-    name: "Batu 9",
-    amount: 1.3,
-  },
-  {
-    displayName: "Sunway",
-    name: "Sunway",
-    amount: 2.1,
-  },
-];
+import { NextApiClient } from "@/services/next-api-client";
 
 export default function CreateTransactionPage() {
   const [addedTolls, setAddedTolls] = useState<Toll[]>([]);
   const [tollNameInput, setTollNameInput] = useState<string>("");
   const [tollAmountInput, setTollAmountInput] = useState<string>("");
+
+  const [commonTolls, setCommonTolls] = useState<Toll[]>([]);
+
+  useEffect(() => {
+    const fetchCommonTolls = async () => {
+      const tolls: Toll[] = await NextApiClient.get<{ data: Toll[] }>("/transactions/tolls/unique").then((res) =>
+        res.data.data.slice(0, 6),
+      );
+      setCommonTolls(tolls);
+    };
+
+    fetchCommonTolls();
+  }, []);
 
   function addToll(toll: Toll) {
     setAddedTolls([...addedTolls, toll]);
