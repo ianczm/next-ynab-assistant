@@ -3,15 +3,9 @@
 import { Tab, Tabs } from "@nextui-org/tabs";
 import React, { Key } from "react";
 import { usePathname, useRouter } from "next/navigation";
+import { NavOption } from "@/types/frontend/navigation";
 
-type TabOption = {
-  id: string;
-  label: string;
-  href: string;
-  disabled: boolean;
-};
-
-const options: TabOption[] = [
+const options: NavOption[] = [
   {
     id: "eating-out",
     label: "Eating Out",
@@ -39,9 +33,8 @@ export default function CreateTransactionLayout({ children }: Readonly<{ childre
   const handleSelectionChange = (key: Key) => router.push(key.toString());
 
   return (
-    <main className="h-screen bg-gray-50 text-sm text-gray-950 dark">
-      {/* Header */}
-      <div className="flex h-44 flex-col justify-end gap-4 bg-gray-950 p-8 pt-0 text-white">
+    <>
+      <header className="flex h-44 flex-col justify-end gap-4 bg-gray-950 p-8 pt-0 text-white">
         <p>Create transaction</p>
         <Tabs
           defaultSelectedKey={pathname}
@@ -57,8 +50,8 @@ export default function CreateTransactionLayout({ children }: Readonly<{ childre
             <Tab key={option.href} id={option.id} title={option.label} isDisabled={option.disabled} />
           ))}
         </Tabs>
-      </div>
-      {children}
-    </main>
+      </header>
+      <main className="text-sm text-gray-950 dark">{children}</main>
+    </>
   );
 }
