@@ -45,7 +45,6 @@ export default class YnabService {
   async createTollTransactions(budgetId: string, tolls: Toll[]) {
     const dateToday: string = moment().utcOffset(8).format("YYYY-MM-DD");
 
-    // Todo: this should be dynamic
     const ACCOUNT_TNG = "046918fa-6a2c-4f6e-8453-a522dc5164c5";
     const PAYEE_TOLLS = "a43f1e55-3e50-4d88-b9f8-d8fe99c4f025";
     const CATEGORY_TOLLS = "8bacc8de-0146-4893-a3b0-2529ac19030a";

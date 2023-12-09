@@ -8,7 +8,6 @@ import { milliUnitsToCurrency } from "@/lib/utils/currency";
 let ynab = YnabProvider.getInstance();
 
 export async function GET() {
-  // Todo: implement
   const { YNAB_DEFAULT_BUDGET_ID } = ConfigProvider.get();
   const transactions = await ynab
     .getAllTransactions(YNAB_DEFAULT_BUDGET_ID)
@@ -34,8 +33,6 @@ export async function GET() {
     }))
     .sortBy((toll) => -1 * toll.count)
     .map(({ count, ...toll }) => toll as Toll);
-
-  // Todo: need to deal with same toll name and different amounts
 
   return NextResponse.json({ data: tollsWithCount });
 }
