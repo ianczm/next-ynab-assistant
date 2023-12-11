@@ -7,7 +7,7 @@ export default async function ReceivablesPage({ params }: Readonly<{ params: { b
     return amount < 0 ? `(${result})` : result;
   }
 
-  const receivablesService: ReceivablesService = ReceivablesProvider.getInstance();
+  const receivablesService: ReceivablesService = ReceivablesProvider.get();
   const payees = await receivablesService.getReceivables(params.budgetId);
   const totalOutstandingAmount = payees.reduce((amount, payee) => payee.outstandingAmount + amount, 0);
 
