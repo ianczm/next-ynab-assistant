@@ -34,7 +34,7 @@ export default function CreateTransactionLayout({ children }: Readonly<{ childre
 
   return (
     <>
-      <header className="flex h-44 flex-col justify-end gap-4 bg-gray-950 p-8 pt-0 text-white">
+      <header className="fixed top-0 z-10 flex h-44 w-full flex-col justify-end gap-4 bg-gray-950 p-8 pt-0 text-white">
         <p>Create transaction</p>
         <Tabs
           defaultSelectedKey={pathname}
@@ -51,7 +51,7 @@ export default function CreateTransactionLayout({ children }: Readonly<{ childre
           ))}
         </Tabs>
       </header>
-      <main className="text-sm text-gray-950 dark">{children}</main>
+      <main className="pt-44 text-sm text-gray-950 dark">{children}</main>
     </>
   );
 }

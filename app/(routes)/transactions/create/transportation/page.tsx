@@ -154,7 +154,7 @@ export default function CreateTransactionPage() {
         </div>
       </div>
       {/* Button */}
-      <div className="fixed bottom-0 flex w-full gap-2 p-8">
+      <div className="fixed bottom-0 z-10 flex w-full gap-2 bg-gradient-to-t from-white from-70% to-transparent p-8">
         <Button
           className="h-auto w-full rounded-xl border border-gray-400 px-4 py-3 font-bold text-gray-950 hover:border-gray-950 hover:!bg-gray-950 hover:text-white"
           variant="ghost"
