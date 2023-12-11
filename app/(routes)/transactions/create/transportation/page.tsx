@@ -2,11 +2,12 @@
 
 import { useEffect, useState } from "react";
 import { Toll } from "@/types/domain/tolls";
-import axios from "axios";
 import { Button } from "@nextui-org/button";
 import { Plus } from "lucide-react";
 import { Input } from "@nextui-org/react";
-import { NextApiClient } from "@/services/next-api-client";
+import { AssistantApiClientProvider } from "@/providers/client/assistant-api-client-provider";
+
+const apiClient = AssistantApiClientProvider.get();
 
 export default function CreateTransactionPage() {
   const [addedTolls, setAddedTolls] = useState<Toll[]>([]);
@@ -17,12 +18,9 @@ export default function CreateTransactionPage() {
 
   useEffect(() => {
     const fetchCommonTolls = async () => {
-      const tolls: Toll[] = await NextApiClient.get<{ data: Toll[] }>("/transactions/tolls/unique").then((res) =>
-        res.data.data.slice(0, 6),
-      );
+      const tolls: Toll[] = await apiClient.getUniqueTolls().then((response) => response.data.slice(0, 6));
       setCommonTolls(tolls);
     };
-
     fetchCommonTolls();
   }, []);
 
@@ -47,14 +45,7 @@ export default function CreateTransactionPage() {
   }
 
   async function handleSave() {
-    await axios
-      .post<{
-        name: string;
-        amount: number;
-        id: string;
-      }>("/api/v1/transactions/tolls/create", addedTolls)
-      .then((response) => response.data)
-      .catch(console.error);
+    await apiClient.postTollTransactions(addedTolls).catch(console.error);
     handleClear();
   }
 
@@ -154,7 +145,7 @@ export default function CreateTransactionPage() {
         </div>
       </div>
       {/* Button */}
-      <div className="fixed bottom-0 flex w-full gap-2 p-8">
+      <div className="fixed bottom-0 z-10 flex w-full gap-2 bg-gradient-to-t from-white from-70% to-transparent p-8">
         <Button
           className="h-auto w-full rounded-xl border border-gray-400 px-4 py-3 font-bold text-gray-950 hover:border-gray-950 hover:!bg-gray-950 hover:text-white"
           variant="ghost"

@@ -3,7 +3,7 @@ import YnabService from "@/services/ynab-service";
 export default class YnabProvider {
   static instance: YnabService | null = null;
 
-  static getInstance() {
+  static get() {
     if (this.instance !== null) {
       return this.instance;
     } else {
