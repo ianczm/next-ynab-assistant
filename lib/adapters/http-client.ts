@@ -19,11 +19,21 @@ export class HttpClientAdapter {
     this.nextConfig = config.next ?? {};
   }
 
-  private baseInit(method: string) {
+  private baseInit(method: string): RequestInit {
     return {
       method: method,
       headers: this.headers,
       next: this.nextConfig,
+    };
+  }
+
+  private baseInitNoCache(method: string): RequestInit {
+    return {
+      method: method,
+      headers: this.headers,
+      next: {
+        revalidate: 0,
+      },
     };
   }
 
@@ -41,7 +51,7 @@ export class HttpClientAdapter {
 
   async post<T>(url: string, data: any) {
     return await fetch(this.baseUrl + url, {
-      ...this.baseInit("POST"),
+      ...this.baseInitNoCache("POST"),
       body: JSON.stringify(data),
     }).then((response) => response.json() as T);
   }
