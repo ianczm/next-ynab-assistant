@@ -1,6 +1,5 @@
 import { Budgets, CurrentUserResponse, Transactions } from "./api-dto";
 import { Toll } from "@/types/domain/tolls";
-import _ from "lodash";
 import moment from "moment";
 import ServerConfigProvider from "@/providers/server-config-provider";
 import { ServerConfig } from "@/types/server-config";
@@ -22,6 +21,7 @@ export default class YnabService {
       baseUrl: this.appConfig.YNAB_BASE_URL,
       headers: {
         Authorization: `Bearer ${this.appConfig.YNAB_ACCESS_TOKEN}`,
+        "Content-Type": "application/json",
       },
       next: {
         tags: ["server:ynab"],
@@ -49,7 +49,7 @@ export default class YnabService {
     const PAYEE_TOLLS = "a43f1e55-3e50-4d88-b9f8-d8fe99c4f025";
     const CATEGORY_TOLLS = "8bacc8de-0146-4893-a3b0-2529ac19030a";
 
-    const transactions = _(tolls).map(
+    const transactions = tolls.map(
       (toll) =>
         ({
           account_id: ACCOUNT_TNG,
@@ -64,9 +64,7 @@ export default class YnabService {
     );
 
     return await this.client
-      .post<Transactions.PostResponse>(`/budgets/${budgetId}/transactions`, {
-        transactions,
-      })
+      .post<Transactions.PostResponse>(`/budgets/${budgetId}/transactions`, { transactions: transactions })
       .then(
         (response) =>
           response.data.transactions?.map((transaction) => ({
