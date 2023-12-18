@@ -6,10 +6,13 @@ import { Button } from "@nextui-org/button";
 import { Plus } from "lucide-react";
 import { Input } from "@nextui-org/react";
 import { AssistantApiClientProvider } from "@/providers/client/assistant-api-client-provider";
+import { DatePicker } from "@/components/ui/date-picker";
+import moment from "moment";
 
 const apiClient = AssistantApiClientProvider.get();
 
 export default function CreateTransactionPage() {
+  const [selectedDate, setSelectedDate] = useState<Date | undefined>(moment().toDate());
   const [addedTolls, setAddedTolls] = useState<Toll[]>([]);
   const [tollNameInput, setTollNameInput] = useState<string>("");
   const [tollAmountInput, setTollAmountInput] = useState<string>("");
@@ -57,6 +60,12 @@ export default function CreateTransactionPage() {
     <>
       {/* Form */}
       <div className="flex flex-col gap-4 p-8 text-xs">
+        <span className="text-[0.7rem] uppercase">Select Date</span>
+        <div className="flex flex-col gap-2">
+          <span className="font-bold">Pick a date</span>
+          {/* Date picker */}
+          <DatePicker selectedDate={selectedDate} onSelect={setSelectedDate}></DatePicker>
+        </div>
         <span className="text-[0.7rem] uppercase">Select Tolls</span>
         <div className="flex flex-col gap-2">
           <span className="font-bold">Common tolls</span>
