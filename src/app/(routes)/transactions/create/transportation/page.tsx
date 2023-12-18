@@ -67,6 +67,9 @@ export default function CreateTransactionPage() {
           <DatePicker
             selectedDate={selectedDate.toDate()}
             onSelect={(date) => setSelectedDate(date ? moment(date) : moment())}
+            classNames={{
+              button: "text-xs text-gray-950 border-gray-400",
+            }}
           ></DatePicker>
         </div>
         <span className="text-[0.7rem] uppercase">Select Tolls</span>
