@@ -51,7 +51,7 @@ export default function CreateTransactionLayout({ children }: Readonly<{ childre
           ))}
         </Tabs>
       </header>
-      <main className="pt-44 text-sm text-gray-950 dark">{children}</main>
+      <main className="pt-44 text-sm text-gray-950">{children}</main>
     </>
   );
 }
