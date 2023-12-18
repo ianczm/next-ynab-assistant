@@ -63,6 +63,10 @@ export default class YnabService {
 
     return await this.client
       .post<Transactions.PostResponse>(`/budgets/${budgetId}/transactions`, { transactions: transactions })
+      .then((response) => {
+        console.log({ endpoint: `POST /budgets/${budgetId}/transactions`, response: response });
+        return response;
+      })
       .then(
         (response) =>
           response.data.transactions?.map((transaction) => ({
