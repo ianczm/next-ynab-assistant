@@ -1,6 +1,6 @@
 import { Budgets, CurrentUserResponse, Transactions } from "./api-dto";
 import { Toll } from "@/types/domain/tolls";
-import moment from "moment";
+import moment, { Moment } from "moment";
 import ServerConfigProvider from "@/providers/server-config-provider";
 import { ServerConfig } from "@/types/server-config";
 import { currencyToMilliUnits, milliUnitsToCurrency } from "@/lib/utils/currency";
@@ -42,9 +42,7 @@ export default class YnabService {
     return await this.client.get<Transactions.MultiResponse>(`/budgets/${budgetId}/transactions`);
   }
 
-  async createTollTransactions(budgetId: string, tolls: Toll[]) {
-    const dateToday: string = moment().utcOffset(8).format("YYYY-MM-DD");
-
+  async createTollTransactions(budgetId: string, tolls: Toll[], date: Moment) {
     const ACCOUNT_TNG = "046918fa-6a2c-4f6e-8453-a522dc5164c5";
     const PAYEE_TOLLS = "a43f1e55-3e50-4d88-b9f8-d8fe99c4f025";
     const CATEGORY_TOLLS = "8bacc8de-0146-4893-a3b0-2529ac19030a";
@@ -53,7 +51,7 @@ export default class YnabService {
       (toll) =>
         ({
           account_id: ACCOUNT_TNG,
-          date: dateToday,
+          date: date.format("YYYY-MM-DD"),
           amount: -1 * currencyToMilliUnits(toll.amount),
           payee_id: PAYEE_TOLLS,
           category_id: CATEGORY_TOLLS,
