@@ -1,3 +1,5 @@
+import _ from "lodash";
+
 export type HttpClientAdapterConfig = {
   baseUrl: string;
   headers: HeadersInit;
@@ -49,9 +51,9 @@ export class HttpClientAdapter {
     throw new Error("Method not implemented.");
   }
 
-  async post<T>(url: string, data: any) {
+  async post<T>(url: string, data: any, options?: { headers?: HeadersInit }) {
     return await fetch(this.baseUrl + url, {
-      ...this.baseInitNoCache("POST"),
+      ..._.merge(this.baseInitNoCache("POST"), options),
       body: JSON.stringify(data),
     }).then((response) => response.json() as T);
   }
