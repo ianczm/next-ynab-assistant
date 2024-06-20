@@ -21,7 +21,7 @@ export default function CreateTransactionPage() {
 
   useEffect(() => {
     const fetchCommonTolls = async () => {
-      const tolls: Toll[] = await apiClient.getUniqueTolls().then((response) => response.data.slice(0, 6));
+      const tolls: Toll[] = await apiClient.getUniqueTolls().then((response) => response.data);
       setCommonTolls(tolls);
     };
     fetchCommonTolls();
