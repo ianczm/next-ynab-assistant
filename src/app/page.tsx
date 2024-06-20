@@ -16,6 +16,12 @@ const options: NavOption[] = [
     label: "Create Transactions",
     disabled: false,
   },
+  {
+    id: "investments",
+    href: "/investments",
+    label: "Investment Dashboard",
+    disabled: false,
+  },
 ];
 
 export default function Home() {

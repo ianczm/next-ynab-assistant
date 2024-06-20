@@ -8,6 +8,7 @@ import { Input } from "@nextui-org/react";
 import { AssistantApiClientProvider } from "@/providers/client/assistant-api-client-provider";
 import { DatePicker } from "@/components/ui/date-picker";
 import moment, { Moment } from "moment";
+import ClearSaveButtonArray from "@/components/compound/ClearSaveButtonArray";
 
 const apiClient = AssistantApiClientProvider.get();
 
@@ -160,23 +161,7 @@ export default function CreateTransactionPage() {
         </div>
       </div>
       {/* Button */}
-      <div className="fixed bottom-0 z-10 flex w-full gap-2 bg-gradient-to-t from-white from-70% to-transparent p-8">
-        <Button
-          className="h-auto w-full rounded-xl border border-gray-400 px-4 py-3 font-bold text-gray-950 hover:border-gray-950 hover:!bg-gray-950 hover:text-white"
-          variant="ghost"
-          onClick={handleClear}
-          isDisabled={addedTolls.length === 0}
-        >
-          Clear
-        </Button>
-        <Button
-          className="h-auto w-full rounded-xl bg-gray-950 px-4 py-3 font-bold text-white"
-          onClick={handleSave}
-          isDisabled={addedTolls.length === 0}
-        >
-          Save
-        </Button>
-      </div>
+      <ClearSaveButtonArray handleClear={handleClear} handleSave={handleSave} isDisabled={addedTolls.length === 0} />
     </>
   );
 }

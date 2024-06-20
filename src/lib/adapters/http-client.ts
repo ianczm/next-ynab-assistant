@@ -39,8 +39,18 @@ export class HttpClientAdapter {
     };
   }
 
-  async get<T>(url: string) {
-    return await fetch(this.baseUrl + url, this.baseInit("GET")).then((response) => response.json() as T);
+  // {
+  //   ..._.merge(options?.revalidate ? this.baseInitNoCache("GET") : this.baseInit("GET"), {
+  //     headers: options?.headers,
+  //   }),
+  // }
+
+  async get<T>(url: string, options?: { revalidate?: boolean; headers?: HeadersInit }) {
+    return await fetch(this.baseUrl + url, {
+      method: "GET",
+      headers: _.merge(this.headers, options?.headers),
+      next: _.merge(this.nextConfig, { revalidate: options?.revalidate ? 0 : undefined }),
+    }).then((response) => response.json() as T);
   }
 
   async options<T>(url: string) {

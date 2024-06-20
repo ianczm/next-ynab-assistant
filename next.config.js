@@ -12,6 +12,11 @@ const nextConfig = {
         destination: "/transactions/create/transportation",
         permanent: true,
       },
+      {
+        source: "/investments",
+        destination: "/investments/",
+        permanent: true,
+      },
     ];
   },
 };

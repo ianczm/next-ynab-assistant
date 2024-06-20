@@ -1,12 +1,19 @@
-import { TollsDTO, TollsDTOSchema } from "@/types/dto/transactions";
+import { AccountsDTO, AccountsDTOSchema, TollsDTO, TollsDTOSchema } from "@/types/dto/transactions";
 import ClientConfigProvider from "@/providers/client/client-config-provider";
 import { Toll } from "@/types/domain/tolls";
 import { HttpClientAdapter, HttpClientAdapterConfig } from "@/lib/adapters/http-client";
 import { Moment } from "moment";
+import {
+  SimpleTransactionDTO,
+  SimpleTransactionDTOSchema,
+  SimpleTransactionListDTO,
+} from "@/types/domain/transactions";
 
 export class AssistantApiClient {
   private static readonly UNIQUE_TOLLS = "/transactions/tolls/unique";
   private static readonly CREATE_TOLLS = "/transactions/tolls/create";
+
+  private static readonly INVESTMENTS = "/investments";
 
   private readonly client: HttpClientAdapter;
 
@@ -34,5 +41,22 @@ export class AssistantApiClient {
         },
       })
       .then(TollsDTOSchema.parse);
+  }
+
+  async getAccounts(budgetId: string) {
+    return await this.client.get<AccountsDTO>(`/${budgetId}/accounts`).then(AccountsDTOSchema.parse); // .then(AccountsDTOSchema.parse);
+  }
+
+  async getInvestments(budgetId: string, accountId: string, revalidate?: boolean) {
+    return await this.client.get<SimpleTransactionListDTO>(`/${budgetId}/investments/${accountId}`, {
+      headers: { "Data-Revalidate": revalidate ? "true" : "false" },
+    });
+  }
+
+  async postInvestment(budgetId: string, accountId: string, transaction: SimpleTransactionDTO) {
+    return await this.client.post<SimpleTransactionDTO>(
+      `/${budgetId}/investments/${accountId}`,
+      SimpleTransactionDTOSchema.parse(transaction),
+    );
   }
 }

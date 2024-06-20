@@ -65,8 +65,10 @@ export namespace Transactions {
 }
 
 // Domain
-export type User = Schemas["User"];
-export type BudgetDetail = Schemas["BudgetDetail"];
-export type Acocunt = Schemas["Account"];
-export type TransactionDetail = Schemas["TransactionDetail"];
-export type SubTransaction = Schemas["SubTransaction"];
+export namespace YnabDomain {
+  export type User = Schemas["User"];
+  export type BudgetDetail = Schemas["BudgetDetail"];
+  export type Account = Schemas["Account"];
+  export type TransactionDetail = Schemas["TransactionDetail"];
+  export type SubTransaction = Schemas["SubTransaction"];
+}
