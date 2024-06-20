@@ -4,3 +4,5 @@ export type NavOption = {
   href: string;
   disabled: boolean;
 };
+
+export type AccountNavOption = NavOption & { balance: number };
