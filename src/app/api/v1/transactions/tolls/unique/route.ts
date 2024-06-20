@@ -31,6 +31,7 @@ export async function GET() {
       ...tolls.find((toll) => toll.name == tollName),
       count: count,
     }))
+    .filter((toll) => toll.count > 1)
     .sortBy((toll) => -1 * toll.count)
     .map(({ count, ...toll }) => toll as Toll);
 
