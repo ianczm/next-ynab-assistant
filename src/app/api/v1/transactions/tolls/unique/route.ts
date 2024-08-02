@@ -26,11 +26,14 @@ export async function GET() {
     );
 
   const tollsWithCount = tolls
-    .countBy((toll) => toll.name)
-    .map((count, tollName) => ({
-      ...tolls.find((toll) => toll.name == tollName),
-      count: count,
-    }))
+    .countBy((toll) => JSON.stringify({ name: toll.name, amount: toll.amount }, null, 0))
+    .map((count, tollJson) => {
+      const tollKey = JSON.parse(tollJson) as Toll;
+      return {
+        ...tolls.find((toll) => toll.name == tollKey.name && toll.amount == tollKey.amount),
+        count: count,
+      };
+    })
     .filter((toll) => toll.count > 1)
     .sortBy((toll) => -1 * toll.count)
     .map(({ count, ...toll }) => toll as Toll);
