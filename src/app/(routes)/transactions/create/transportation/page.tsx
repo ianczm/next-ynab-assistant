@@ -8,12 +8,16 @@ import { Input } from "@nextui-org/react";
 import { AssistantApiClientProvider } from "@/providers/client/assistant-api-client-provider";
 import { DatePicker } from "@/components/ui/date-picker";
 import moment, { Moment } from "moment";
+import { TollButton } from "./toll-button";
+import { v4 as uuidv4 } from "uuid";
 
 const apiClient = AssistantApiClientProvider.get();
 
+type TollWithGUID = Toll & { guid: string };
+
 export default function CreateTransactionPage() {
   const [selectedDate, setSelectedDate] = useState<Moment>(moment());
-  const [addedTolls, setAddedTolls] = useState<Toll[]>([]);
+  const [addedTolls, setAddedTolls] = useState<TollWithGUID[]>([]);
   const [tollNameInput, setTollNameInput] = useState<string>("");
   const [tollAmountInput, setTollAmountInput] = useState<string>("");
 
@@ -28,7 +32,7 @@ export default function CreateTransactionPage() {
   }, []);
 
   function addToll(toll: Toll) {
-    setAddedTolls([...addedTolls, toll]);
+    setAddedTolls([...addedTolls, { ...toll, guid: uuidv4() }]);
   }
 
   function handleAddTollFromInput() {
@@ -45,6 +49,10 @@ export default function CreateTransactionPage() {
 
   function handleClear() {
     setAddedTolls([]);
+  }
+
+  function deleteToll(guid?: string) {
+    setAddedTolls((prev) => prev.filter((toll) => toll.guid !== guid));
   }
 
   async function handleSave() {
@@ -145,18 +153,13 @@ export default function CreateTransactionPage() {
             <span>{computeTotalAmount()}</span>
           </div>
           {/* Tolls */}
-          <ul className="flex flex-col gap-1">
+          <div className="flex flex-col gap-1">
             {addedTolls.length === 0 ? (
-              <li className="text-gray-400">There are no tolls to preview.</li>
+              <span className="cursor-default py-3 text-left text-gray-400">There are no tolls to preview.</span>
             ) : (
-              addedTolls.map((toll) => (
-                <li key={toll.displayName} className="flex justify-between">
-                  <span>{toll.displayName}</span>
-                  <span>{toll.amount.toFixed(2)}</span>
-                </li>
-              ))
+              addedTolls.map((toll) => <TollButton key={toll.guid} toll={toll} onClick={() => deleteToll(toll.guid)} />)
             )}
-          </ul>
+          </div>
         </div>
       </div>
       {/* Button */}

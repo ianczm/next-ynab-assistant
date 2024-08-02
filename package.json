@@ -3,16 +3,20 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev:live": "dotenvx run -f .env.dev.live -- next dev",
+    "dev:local": "dotenvx run -f .env.dev.local -- next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "test": "vitest"
   },
   "dependencies": {
+    "@dotenvx/dotenvx": "^1.6.4",
     "@nextui-org/react": "^2.2.9",
     "@radix-ui/react-popover": "^1.0.7",
     "@radix-ui/react-slot": "^1.0.2",
+    "@types/uuid": "^10.0.0",
+    "@uidotdev/usehooks": "^2.4.1",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "date-fns": "^2.30.0",
@@ -27,6 +31,7 @@
     "react-dom": "^18.2.0",
     "tailwind-merge": "^2.1.0",
     "tailwindcss-animate": "^1.0.7",
+    "uuid": "^10.0.0",
     "zod": "^3.22.4"
   },
   "devDependencies": {
