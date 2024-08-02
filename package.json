@@ -3,13 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev:live": "dotenvx run -f .env.dev.live -- next dev",
+    "dev:local": "dotenvx run -f .env.dev.local -- next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "test": "vitest"
   },
   "dependencies": {
+    "@dotenvx/dotenvx": "^1.6.4",
     "@nextui-org/react": "^2.2.9",
     "@radix-ui/react-popover": "^1.0.7",
     "@radix-ui/react-slot": "^1.0.2",
