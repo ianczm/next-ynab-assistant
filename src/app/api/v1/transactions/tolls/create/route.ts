@@ -1,12 +1,12 @@
-import { NextRequest, NextResponse } from "next/server";
-import { Toll } from "@/types/domain/tolls";
-import YnabProvider from "@/providers/ynab-provider";
-import ServerConfigProvider from "@/providers/server-config-provider";
-import { TollsDTOSchema } from "@/types/dto/transactions";
+import { configService } from "@/services/backend/config-service";
+import { ynabProvider } from "@/services/backend/ynab-service";
+import { TollsDTOSchema } from "@/types/backend/internal/tolls";
+import { Toll } from "@/types/common/tolls";
 import moment from "moment";
+import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 
-let ynab = YnabProvider.get();
+const ynab = ynabProvider.get();
 
 export async function POST(request: NextRequest) {
   const parsedRequest = TollsDTOSchema.safeParse(await request.json());
@@ -39,7 +39,7 @@ export async function POST(request: NextRequest) {
   }
 
   const tolls: Toll[] = parsedRequest.data.data;
-  const { YNAB_DEFAULT_BUDGET_ID } = ServerConfigProvider.get();
+  const { YNAB_DEFAULT_BUDGET_ID } = configService.get();
   const addedTolls = await ynab.createTollTransactions(YNAB_DEFAULT_BUDGET_ID, tolls, selectedDate.data);
   const output = TollsDTOSchema.parse({ data: addedTolls });
   return NextResponse.json(output);

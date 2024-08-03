@@ -2,9 +2,8 @@
 
 import { NextUIProvider } from "@nextui-org/react";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
-import React from "react";
-import { useRouter } from "next/navigation";
 import { type ThemeProviderProps } from "next-themes/dist/types";
+import { useRouter } from "next/navigation";
 
 export function Providers({
   children,

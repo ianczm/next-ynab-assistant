@@ -1,7 +1,6 @@
-import Link from "next/link";
-import React from "react";
-import { Button } from "@nextui-org/button";
 import { NavOption } from "@/types/frontend/navigation";
+import { Button } from "@nextui-org/button";
+import Link from "next/link";
 
 const options: NavOption[] = [
   {

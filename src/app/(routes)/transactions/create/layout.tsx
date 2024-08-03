@@ -1,9 +1,9 @@
 "use client";
 
-import { Tab, Tabs } from "@nextui-org/tabs";
-import React, { Key } from "react";
-import { usePathname, useRouter } from "next/navigation";
 import { NavOption } from "@/types/frontend/navigation";
+import { Tab, Tabs } from "@nextui-org/tabs";
+import { usePathname, useRouter } from "next/navigation";
+import React, { Key } from "react";
 
 const options: NavOption[] = [
   {

@@ -1,8 +1,8 @@
 "use client";
 
-import { Toll } from "@/types/domain/tolls";
+import { Toll } from "@/types/common/tolls";
 import { useHover } from "@uidotdev/usehooks";
-import { Delete, DeleteIcon, TrashIcon } from "lucide-react";
+import { TrashIcon } from "lucide-react";
 
 export interface TollButtonProps {
   toll: Toll;

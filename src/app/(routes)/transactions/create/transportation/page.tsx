@@ -1,17 +1,17 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { Toll } from "@/types/domain/tolls";
+import { ApiService } from "@/services/frontend/api-service";
+import { Toll } from "@/types/common/tolls";
+import { DatePicker } from "@/ui/components/shadcn/date-picker";
 import { Button } from "@nextui-org/button";
-import { Plus } from "lucide-react";
 import { Input } from "@nextui-org/react";
-import { AssistantApiClientProvider } from "@/providers/client/assistant-api-client-provider";
-import { DatePicker } from "@/components/ui/date-picker";
+import { Plus } from "lucide-react";
 import moment, { Moment } from "moment";
-import { TollButton } from "./toll-button";
+import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
+import { TollButton } from "./toll-button";
 
-const apiClient = AssistantApiClientProvider.get();
+const apiService = ApiService.get();
 
 type TollWithGUID = Toll & { guid: string };
 
@@ -20,12 +20,11 @@ export default function CreateTransactionPage() {
   const [addedTolls, setAddedTolls] = useState<TollWithGUID[]>([]);
   const [tollNameInput, setTollNameInput] = useState<string>("");
   const [tollAmountInput, setTollAmountInput] = useState<string>("");
-
   const [commonTolls, setCommonTolls] = useState<Toll[]>([]);
 
   useEffect(() => {
     const fetchCommonTolls = async () => {
-      const tolls: Toll[] = await apiClient.getUniqueTolls().then((response) => response.data);
+      const tolls: Toll[] = await apiService.getUniqueTolls().then((response) => response.data);
       setCommonTolls(tolls);
     };
     fetchCommonTolls();
@@ -56,7 +55,7 @@ export default function CreateTransactionPage() {
   }
 
   async function handleSave() {
-    await apiClient.postTollTransactions(addedTolls, moment(selectedDate)).catch(console.error);
+    await apiService.postTollTransactions(addedTolls, moment(selectedDate)).catch(console.error);
     handleClear();
   }
 
@@ -87,7 +86,7 @@ export default function CreateTransactionPage() {
           <div className="flex flex-wrap gap-1">
             {commonTolls.map((toll) => (
               <Button
-                key={toll.displayName}
+                key={uuidv4()}
                 variant="ghost"
                 className="flex gap-3 rounded-xl border border-gray-400 px-4 py-3 text-xs text-gray-950 hover:border-gray-950 hover:!bg-gray-950 hover:text-white"
                 onClick={() => addToll(toll)}

@@ -1,11 +1,9 @@
-import * as React from "react";
+import { Button } from "@/ui/components/shadcn/button";
+import { Calendar } from "@/ui/components/shadcn/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/ui/components/shadcn/popover";
+import { cn } from "@/ui/utils/tailwind";
 import { format } from "date-fns";
 import { Calendar as CalendarIcon } from "lucide-react";
-
-import { cn } from "@/lib/utils/tailwind";
-import { Button } from "@/components/ui/button";
-import { Calendar } from "@/components/ui/calendar";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { SelectSingleEventHandler } from "react-day-picker";
 
 interface DatePickerProps {

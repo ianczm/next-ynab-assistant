@@ -1,18 +1,21 @@
 import { HttpClientAdapter, HttpClientAdapterConfig } from "@/lib/adapters/http-client";
 import { currencyToMilliUnits, milliUnitsToCurrency } from "@/lib/utils/currency";
-import ServerConfigProvider from "@/providers/server-config-provider";
-import { Toll } from "@/types/domain/tolls";
-import { ServerConfig } from "@/types/server-config";
+import { lazySingleton } from "@/lib/utils/singleton";
+import { ServerConfig } from "@/types/backend/server-config";
+import { Toll } from "@/types/common/tolls";
 import moment, { Moment } from "moment";
-import { Transactions } from "./api-dto";
+import { Transactions } from "../../types/backend/ynab/api-dto";
+import { configService } from "./config-service";
 import SaveTransaction = Transactions.SaveTransaction;
+
+export const ynabProvider = lazySingleton(() => new YnabService());
 
 export default class YnabService {
   appConfig: ServerConfig;
   client: HttpClientAdapter;
 
   constructor() {
-    this.appConfig = ServerConfigProvider.get();
+    this.appConfig = configService.get();
     this.client = HttpClientAdapter.create(this.provideConfig());
   }
 
