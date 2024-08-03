@@ -1,4 +1,4 @@
-import { NavOption } from "@/types/frontend/navigation";
+import { NavOption } from "@/ui/types/navigation";
 import { Button } from "@nextui-org/button";
 import Link from "next/link";
 

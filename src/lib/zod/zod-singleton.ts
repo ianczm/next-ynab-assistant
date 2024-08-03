@@ -1,7 +1,11 @@
 import { lazySingleton } from "@/lib/utils/singleton";
 import { ZodType } from "zod";
 
-export class ZodSingleton<T> {
+export function zodSingleton<T>(zodType: ZodType<T>, env?: Partial<T>) {
+  return new ZodSingleton(zodType, env);
+}
+
+class ZodSingleton<T> {
   private zodType;
   private configSingleton;
 

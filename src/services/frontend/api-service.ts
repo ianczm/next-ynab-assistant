@@ -1,24 +1,17 @@
 import { HttpClientAdapter, HttpClientAdapterConfig } from "@/lib/adapters/http-client";
+import { lazySingleton } from "@/lib/utils/singleton";
 import { TollsDTO, TollsDTOSchema } from "@/types/backend/internal/tolls";
 import { Toll } from "@/types/common/tolls";
 import { Moment } from "moment";
 import { configService } from "./config-service";
 
-export class ApiService {
+export const apiProvider = lazySingleton(() => new ApiService());
+
+class ApiService {
   private static readonly UNIQUE_TOLLS = "/transactions/tolls/unique";
   private static readonly CREATE_TOLLS = "/transactions/tolls/create";
-  private static instance: ApiService | null = null;
 
   private readonly client: HttpClientAdapter;
-
-  static get() {
-    if (this.instance !== null) {
-      return this.instance;
-    } else {
-      this.instance = new ApiService();
-      return this.instance;
-    }
-  }
 
   constructor() {
     this.client = HttpClientAdapter.create(this.provideConfig());

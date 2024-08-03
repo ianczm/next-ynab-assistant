@@ -1,6 +1,6 @@
 "use client";
 
-import { ApiService } from "@/services/frontend/api-service";
+import { apiProvider } from "@/services/frontend/api-service";
 import { Toll } from "@/types/common/tolls";
 import { DatePicker } from "@/ui/components/shadcn/date-picker";
 import { Button } from "@nextui-org/button";
@@ -11,7 +11,7 @@ import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { TollButton } from "./toll-button";
 
-const apiService = ApiService.get();
+const apiService = apiProvider.get();
 
 type TollWithGUID = Toll & { guid: string };
 

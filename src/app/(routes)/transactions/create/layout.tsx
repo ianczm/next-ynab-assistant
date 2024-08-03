@@ -1,6 +1,6 @@
 "use client";
 
-import { NavOption } from "@/types/frontend/navigation";
+import { NavOption } from "@/ui/types/navigation";
 import { Tab, Tabs } from "@nextui-org/tabs";
 import { usePathname, useRouter } from "next/navigation";
 import React, { Key } from "react";
