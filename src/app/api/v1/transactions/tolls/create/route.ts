@@ -1,7 +1,7 @@
+import { TollsDTOSchema } from "@/data/backend/internal/tolls";
+import { Toll } from "@/data/common/tolls";
 import { configService } from "@/services/backend/config-service";
 import { ynabProvider } from "@/services/backend/ynab-service";
-import { TollsDTOSchema } from "@/types/backend/internal/tolls";
-import { Toll } from "@/types/common/tolls";
 import moment from "moment";
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";

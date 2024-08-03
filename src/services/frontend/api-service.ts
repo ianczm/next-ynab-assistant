@@ -1,7 +1,7 @@
+import { TollsDTO, TollsDTOSchema } from "@/data/backend/internal/tolls";
+import { Toll } from "@/data/common/tolls";
 import { HttpClientAdapter, HttpClientAdapterConfig } from "@/lib/adapters/http-client";
 import { lazySingleton } from "@/lib/utils/singleton";
-import { TollsDTO, TollsDTOSchema } from "@/types/backend/internal/tolls";
-import { Toll } from "@/types/common/tolls";
 import { Moment } from "moment";
 import { configService } from "./config-service";
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { Toll } from "@/types/common/tolls";
+import { Toll } from "@/data/common/tolls";
 import { useHover } from "@uidotdev/usehooks";
 import { TrashIcon } from "lucide-react";
 

@@ -1,7 +1,7 @@
 "use client";
 
+import { Toll } from "@/data/common/tolls";
 import { apiProvider } from "@/services/frontend/api-service";
-import { Toll } from "@/types/common/tolls";
 import { DatePicker } from "@/ui/components/shadcn/date-picker";
 import { Button } from "@nextui-org/button";
 import { Input } from "@nextui-org/react";
@@ -16,16 +16,18 @@ const apiService = apiProvider.get();
 type TollWithGUID = Toll & { guid: string };
 
 export default function CreateTransactionPage() {
-  const [selectedDate, setSelectedDate] = useState<Moment>(moment());
+  const [commonTolls, setCommonTolls] = useState<TollWithGUID[]>([]);
+
   const [addedTolls, setAddedTolls] = useState<TollWithGUID[]>([]);
+  const [selectedDate, setSelectedDate] = useState<Moment>(moment());
+
   const [tollNameInput, setTollNameInput] = useState<string>("");
   const [tollAmountInput, setTollAmountInput] = useState<string>("");
-  const [commonTolls, setCommonTolls] = useState<Toll[]>([]);
 
   useEffect(() => {
     const fetchCommonTolls = async () => {
       const tolls: Toll[] = await apiService.getUniqueTolls().then((response) => response.data);
-      setCommonTolls(tolls);
+      setCommonTolls(tolls.map((toll) => ({ ...toll, guid: uuidv4() })));
     };
     fetchCommonTolls();
   }, []);
@@ -55,7 +57,7 @@ export default function CreateTransactionPage() {
   }
 
   async function handleSave() {
-    await apiService.postTollTransactions(addedTolls, moment(selectedDate)).catch(console.error);
+    await apiService.postTollTransactions(addedTolls, selectedDate).catch(console.error);
     handleClear();
   }
 
@@ -86,7 +88,7 @@ export default function CreateTransactionPage() {
           <div className="flex flex-wrap gap-1">
             {commonTolls.map((toll) => (
               <Button
-                key={uuidv4()}
+                key={toll.guid}
                 variant="ghost"
                 className="flex gap-3 rounded-xl border border-gray-400 px-4 py-3 text-xs text-gray-950 hover:border-gray-950 hover:!bg-gray-950 hover:text-white"
                 onClick={() => addToll(toll)}

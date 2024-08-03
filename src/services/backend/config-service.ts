@@ -1,4 +1,4 @@
+import { ServerConfigSchema } from "@/data/backend/server-config";
 import { zodSingleton } from "@/lib/zod/zod-singleton";
-import { ServerConfigSchema } from "@/types/backend/server-config";
 
 export const configService = zodSingleton(ServerConfigSchema);

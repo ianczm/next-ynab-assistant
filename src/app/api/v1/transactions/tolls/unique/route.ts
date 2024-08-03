@@ -1,7 +1,7 @@
+import { Toll } from "@/data/common/tolls";
 import { milliUnitsToCurrency } from "@/lib/utils/currency";
 import { configService } from "@/services/backend/config-service";
 import { ynabProvider } from "@/services/backend/ynab-service";
-import { Toll } from "@/types/common/tolls";
 import _ from "lodash";
 import { NextResponse } from "next/server";
 

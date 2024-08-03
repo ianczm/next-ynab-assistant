@@ -1,10 +1,10 @@
+import { ServerConfig } from "@/data/backend/server-config";
+import { Transactions } from "@/data/backend/ynab/api-dto";
+import { Toll } from "@/data/common/tolls";
 import { HttpClientAdapter, HttpClientAdapterConfig } from "@/lib/adapters/http-client";
 import { currencyToMilliUnits, milliUnitsToCurrency } from "@/lib/utils/currency";
 import { lazySingleton } from "@/lib/utils/singleton";
-import { ServerConfig } from "@/types/backend/server-config";
-import { Toll } from "@/types/common/tolls";
 import moment, { Moment } from "moment";
-import { Transactions } from "../../types/backend/ynab/api-dto";
 import { configService } from "./config-service";
 import SaveTransaction = Transactions.SaveTransaction;
 
@@ -62,13 +62,12 @@ class YnabService {
         console.log({ endpoint: `POST /budgets/${budgetId}/transactions`, response: response });
         return response;
       })
-      .then(
-        (response) =>
-          response.data.transactions?.map((transaction) => ({
-            name: transaction.memo,
-            amount: -1 * milliUnitsToCurrency(transaction.amount),
-            id: transaction.id,
-          })),
+      .then((response) =>
+        response.data.transactions?.map((transaction) => ({
+          name: transaction.memo,
+          amount: -1 * milliUnitsToCurrency(transaction.amount),
+          id: transaction.id,
+        })),
       );
   }
 }
