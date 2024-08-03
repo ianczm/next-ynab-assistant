@@ -3,49 +3,28 @@
 import { Toll } from "@/data/common/tolls";
 import { apiProvider } from "@/services/frontend/api-service";
 import { DatePicker } from "@/ui/components/shadcn/date-picker";
+import { GUID } from "@/ui/types/guid";
 import { Button } from "@nextui-org/button";
-import { Input } from "@nextui-org/react";
-import { Plus } from "lucide-react";
 import moment, { Moment } from "moment";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
+import { CommonTolls } from "./common-tolls";
+import { useCommonTolls } from "./hooks/use-common-tolls";
 import { TollButton } from "./toll-button";
+import { TollInput } from "./toll-input";
 
 const apiService = apiProvider.get();
 
-type TollWithGUID = Toll & { guid: string };
-
 export default function CreateTransactionPage() {
-  const [commonTolls, setCommonTolls] = useState<TollWithGUID[]>([]);
+  const commonTolls = useCommonTolls(apiService);
 
-  const [addedTolls, setAddedTolls] = useState<TollWithGUID[]>([]);
   const [selectedDate, setSelectedDate] = useState<Moment>(moment());
 
-  const [tollNameInput, setTollNameInput] = useState<string>("");
-  const [tollAmountInput, setTollAmountInput] = useState<string>("");
-
-  useEffect(() => {
-    const fetchCommonTolls = async () => {
-      const tolls: Toll[] = await apiService.getUniqueTolls().then((response) => response.data);
-      setCommonTolls(tolls.map((toll) => ({ ...toll, guid: uuidv4() })));
-    };
-    fetchCommonTolls();
-  }, []);
+  const [addedTolls, setAddedTolls] = useState<GUID<Toll>[]>([]);
+  const addedTollsTotalAmount = addedTolls.reduce((sum, toll) => sum + toll.amount, 0);
 
   function addToll(toll: Toll) {
     setAddedTolls([...addedTolls, { ...toll, guid: uuidv4() }]);
-  }
-
-  function handleAddTollFromInput() {
-    if (tollNameInput && tollAmountInput) {
-      addToll({
-        displayName: tollNameInput,
-        name: tollNameInput,
-        amount: parseFloat(tollAmountInput),
-      });
-      setTollNameInput("");
-      setTollAmountInput("");
-    }
   }
 
   function handleClear() {
@@ -61,10 +40,6 @@ export default function CreateTransactionPage() {
     handleClear();
   }
 
-  function computeTotalAmount() {
-    return addedTolls.reduce((sum, toll) => sum + toll.amount, 0).toFixed(2);
-  }
-
   return (
     <>
       {/* Form */}
@@ -72,7 +47,6 @@ export default function CreateTransactionPage() {
         <span className="text-[0.7rem] uppercase">Select Date</span>
         <div className="flex flex-col gap-2">
           <span className="font-bold">Pick a date</span>
-          {/* Date picker */}
           <DatePicker
             selectedDate={selectedDate.toDate()}
             onSelect={(date) => setSelectedDate(date ? moment(date) : moment())}
@@ -84,65 +58,11 @@ export default function CreateTransactionPage() {
         <span className="text-[0.7rem] uppercase">Select Tolls</span>
         <div className="flex flex-col gap-2">
           <span className="font-bold">Common tolls</span>
-          {/* Tolls */}
-          <div className="flex flex-wrap gap-1">
-            {commonTolls.map((toll) => (
-              <Button
-                key={toll.guid}
-                variant="ghost"
-                className="flex gap-3 rounded-xl border border-gray-400 px-4 py-3 text-xs text-gray-950 hover:border-gray-950 hover:!bg-gray-950 hover:text-white"
-                onClick={() => addToll(toll)}
-              >
-                <span>{toll.displayName}</span>
-                <span>
-                  <b>{toll.amount.toFixed(2)}</b>
-                </span>
-              </Button>
-            ))}
-          </div>
+          <CommonTolls commonTolls={commonTolls} onTollClick={addToll} />
         </div>
         <div className="flex flex-col gap-2">
           <span className="text-xs font-bold">Other tolls</span>
-          <div className="flex gap-2">
-            <div className="flex flex-grow divide-x divide-gray-400 overflow-hidden rounded-xl border border-gray-400">
-              <Input
-                isClearable
-                value={tollNameInput}
-                onValueChange={setTollNameInput}
-                variant="bordered"
-                type="text"
-                label="Toll Name"
-                classNames={{
-                  base: "flex-grow !p-0 bg-transparent",
-                  inputWrapper: "px-4 py-3 border-none rounded-xl rounded-r-none",
-                  label: "text-xs",
-                  input: "text-xs",
-                }}
-              />
-              <Input
-                isClearable
-                value={tollAmountInput}
-                onValueChange={setTollAmountInput}
-                variant="bordered"
-                type="number"
-                step="0.01"
-                min="0"
-                label="Amount"
-                classNames={{
-                  base: "!p-0 w-32 bg-transparent",
-                  inputWrapper: "px-4 py-3 border-none rounded-xl",
-                  label: "text-xs",
-                  input: "text-xs font-bold",
-                }}
-              />
-            </div>
-            <Button
-              className="h-auto w-16 rounded-xl bg-gray-950 px-4 py-3 font-bold text-white"
-              onClick={handleAddTollFromInput}
-            >
-              <Plus size={16} strokeWidth={3} />
-            </Button>
-          </div>
+          <TollInput onAddToll={addToll} />
         </div>
       </div>
       {/* Preview */}
@@ -151,7 +71,7 @@ export default function CreateTransactionPage() {
         <div className="flex flex-col gap-2">
           <div className="flex justify-between text-base font-bold">
             <span>Tolls</span>
-            <span>{computeTotalAmount()}</span>
+            <span>{addedTollsTotalAmount.toFixed(2)}</span>
           </div>
           {/* Tolls */}
           <div className="flex flex-col gap-1">

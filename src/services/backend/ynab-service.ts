@@ -10,7 +10,7 @@ import SaveTransaction = Transactions.SaveTransaction;
 
 export const ynabProvider = lazySingleton(() => new YnabService());
 
-class YnabService {
+export class YnabService {
   appConfig: ServerConfig;
   client: HttpClientAdapter;
 

@@ -7,7 +7,7 @@ import { configService } from "./config-service";
 
 export const apiProvider = lazySingleton(() => new ApiService());
 
-class ApiService {
+export class ApiService {
   private static readonly UNIQUE_TOLLS = "/transactions/tolls/unique";
   private static readonly CREATE_TOLLS = "/transactions/tolls/create";
 
