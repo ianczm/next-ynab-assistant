@@ -1,10 +1,10 @@
-import { Budgets, CurrentUserResponse, Transactions } from "./api-dto";
-import { Toll } from "@/types/domain/tolls";
-import moment, { Moment } from "moment";
-import ServerConfigProvider from "@/providers/server-config-provider";
-import { ServerConfig } from "@/types/server-config";
-import { currencyToMilliUnits, milliUnitsToCurrency } from "@/lib/utils/currency";
 import { HttpClientAdapter, HttpClientAdapterConfig } from "@/lib/adapters/http-client";
+import { currencyToMilliUnits, milliUnitsToCurrency } from "@/lib/utils/currency";
+import ServerConfigProvider from "@/providers/server-config-provider";
+import { Toll } from "@/types/domain/tolls";
+import { ServerConfig } from "@/types/server-config";
+import moment, { Moment } from "moment";
+import { Transactions } from "./api-dto";
 import SaveTransaction = Transactions.SaveTransaction;
 
 export default class YnabService {
@@ -28,14 +28,6 @@ export default class YnabService {
         revalidate: moment.duration({ hour: 8 }).asSeconds(),
       },
     };
-  }
-
-  async getCurrentUser(): Promise<CurrentUserResponse> {
-    return await this.client.get<CurrentUserResponse>("/user");
-  }
-
-  async getBudgetSummary(): Promise<Budgets.MultiResponse> {
-    return await this.client.get<Budgets.MultiResponse>("/budgets");
   }
 
   async getAllTransactions(budgetId: string): Promise<Transactions.MultiResponse> {

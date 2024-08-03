@@ -7,21 +7,9 @@ import { NavOption } from "@/types/frontend/navigation";
 
 const options: NavOption[] = [
   {
-    id: "eating-out",
-    label: "Eating Out",
-    href: "/transactions/create/eating-out",
-    disabled: false,
-  },
-  {
     id: "transportation",
     label: "Transportation",
     href: "/transactions/create/transportation",
-    disabled: false,
-  },
-  {
-    id: "others",
-    label: "Others",
-    href: "/transactions/create/others",
     disabled: false,
   },
 ];

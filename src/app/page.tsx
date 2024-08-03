@@ -5,12 +5,6 @@ import { NavOption } from "@/types/frontend/navigation";
 
 const options: NavOption[] = [
   {
-    id: "receivables",
-    href: "/receivables/eefbb017-955c-4350-ad22-f7b4d3f53236",
-    label: "Receivables",
-    disabled: false,
-  },
-  {
     id: "create-transactions",
     href: "/transactions/create",
     label: "Create Transactions",
