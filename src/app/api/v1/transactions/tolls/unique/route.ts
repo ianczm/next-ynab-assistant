@@ -1,14 +1,14 @@
-import YnabProvider from "@/providers/ynab-provider";
-import ServerConfigProvider from "@/providers/server-config-provider";
-import { NextResponse } from "next/server";
-import _ from "lodash";
-import { Toll } from "@/types/domain/tolls";
+import { Toll } from "@/data/common/tolls";
 import { milliUnitsToCurrency } from "@/lib/utils/currency";
+import { configService } from "@/services/backend/config-service";
+import { ynabProvider } from "@/services/backend/ynab-service";
+import _ from "lodash";
+import { NextResponse } from "next/server";
 
-let ynab = YnabProvider.get();
+const ynab = ynabProvider.get();
 
 export async function GET() {
-  const { YNAB_DEFAULT_BUDGET_ID } = ServerConfigProvider.get();
+  const { YNAB_DEFAULT_BUDGET_ID } = configService.get();
   const transactions = await ynab
     .getAllTransactions(YNAB_DEFAULT_BUDGET_ID)
     .then((response) => response.data.transactions);

@@ -1,15 +1,8 @@
-import Link from "next/link";
-import React from "react";
+import { NavOption } from "@/ui/types/navigation";
 import { Button } from "@nextui-org/button";
-import { NavOption } from "@/types/frontend/navigation";
+import Link from "next/link";
 
 const options: NavOption[] = [
-  {
-    id: "receivables",
-    href: "/receivables/eefbb017-955c-4350-ad22-f7b4d3f53236",
-    label: "Receivables",
-    disabled: false,
-  },
   {
     id: "create-transactions",
     href: "/transactions/create",
