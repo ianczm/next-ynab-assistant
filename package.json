@@ -5,6 +5,7 @@
   "scripts": {
     "dev:live": "dotenvx run -f .env.dev.live -- next dev --turbo",
     "dev:local": "dotenvx run -f .env.dev.local -- next dev --turbo",
+    "build:local": "dotenvx run -f .env.dev.local -- next build",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",

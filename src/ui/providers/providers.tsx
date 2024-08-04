@@ -10,7 +10,7 @@ export function Providers({
   nextThemeProps,
 }: Readonly<{
   children: React.ReactNode;
-  nextThemeProps: ThemeProviderProps;
+  nextThemeProps: Omit<ThemeProviderProps, "children">;
 }>) {
   const router = useRouter();
 
