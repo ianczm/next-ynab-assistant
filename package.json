@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev:live": "dotenvx run -f .env.dev.live -- next dev",
-    "dev:local": "dotenvx run -f .env.dev.local -- next dev",
+    "dev:live": "dotenvx run -f .env.dev.live -- next dev --turbo",
+    "dev:local": "dotenvx run -f .env.dev.local -- next dev --turbo",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
