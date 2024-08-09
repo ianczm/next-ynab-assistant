@@ -1,4 +1,5 @@
 import { TollsDTO, TollsDTOSchema } from "@/data/backend/internal/tolls";
+import { mockAccounts } from "@/data/common/accounts";
 import { Toll } from "@/data/common/tolls";
 import { HttpClientAdapter, HttpClientAdapterConfig } from "@/lib/adapters/http-client";
 import { lazySingleton } from "@/lib/utils/singleton";
@@ -38,5 +39,9 @@ export class ApiService {
         },
       })
       .then(TollsDTOSchema.parse);
+  }
+
+  async getAccounts() {
+    return Promise.resolve(mockAccounts);
   }
 }
