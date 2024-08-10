@@ -314,7 +314,7 @@
       "responses": [
         {
           "uuid": "b9f1e8b0-1e48-41e3-94b8-7124825f49d6",
-          "body": "{\n  \"data\": {\n    \"accounts\": [\n      {\n        \"id\": \"{{faker 'datatype.uuid'}}\",\n        \"name\": \"\",\n        \"type\": \"{{oneOf (array 'checking' 'savings' 'cash' 'creditCard' 'lineOfCredit' 'otherAsset' 'otherLiability' 'mortgage' 'autoLoan' 'studentLoan' 'personalLoan' 'medicalDebt' 'otherDebt')}}\",\n        \"on_budget\": {{faker 'datatype.boolean'}},\n        \"closed\": {{faker 'datatype.boolean'}},\n        \"note\": \"\",\n        \"balance\": {{faker 'datatype.number'}},\n        \"cleared_balance\": {{faker 'datatype.number'}},\n        \"uncleared_balance\": {{faker 'datatype.number'}},\n        \"transfer_payee_id\": \"{{faker 'datatype.uuid'}}\",\n        \"direct_import_linked\": {{faker 'datatype.boolean'}},\n        \"direct_import_in_error\": {{faker 'datatype.boolean'}},\n        \"last_reconciled_at\": \"{{faker 'date.recent' 365}}\",\n        \"debt_original_balance\": {{faker 'datatype.number'}},\n        \"debt_interest_rates\": {},\n        \"debt_minimum_payments\": {},\n        \"debt_escrow_amounts\": {},\n        \"deleted\": {{faker 'datatype.boolean'}}\n      }\n    ],\n    \"server_knowledge\": {{faker 'datatype.number'}}\n  }\n}",
+          "body": "{\n  \"data\": {\n    \"accounts\": [\n      {\n        \"id\": \"6d0d05b3-f9ce-44f6-b4d2-4e0b5d393b1a\",\n        \"name\": \"HLB\",\n        \"type\": \"savings\",\n        \"on_budget\": true,\n        \"closed\": false,\n        \"note\": null,\n        \"balance\": 12625580,\n        \"cleared_balance\": 12625580,\n        \"uncleared_balance\": 0,\n        \"transfer_payee_id\": \"44b928b6-5bde-42d3-8520-c0717773e759\",\n        \"direct_import_linked\": false,\n        \"direct_import_in_error\": false,\n        \"last_reconciled_at\": \"2024-08-09T16:09:51Z\",\n        \"debt_original_balance\": null,\n        \"debt_interest_rates\": {},\n        \"debt_minimum_payments\": {},\n        \"debt_escrow_amounts\": {},\n        \"deleted\": false\n      },\n      {\n        \"id\": \"53c45016-2244-4e88-8b3e-97de03627efb\",\n        \"name\": \"Cash\",\n        \"type\": \"cash\",\n        \"on_budget\": true,\n        \"closed\": false,\n        \"note\": null,\n        \"balance\": 407300,\n        \"cleared_balance\": 407300,\n        \"uncleared_balance\": 0,\n        \"transfer_payee_id\": \"6eb55dd0-8017-4162-9f95-8a232cbc0860\",\n        \"direct_import_linked\": false,\n        \"direct_import_in_error\": false,\n        \"last_reconciled_at\": \"2024-08-01T16:48:54Z\",\n        \"debt_original_balance\": null,\n        \"debt_interest_rates\": {},\n        \"debt_minimum_payments\": {},\n        \"debt_escrow_amounts\": {},\n        \"deleted\": false\n      },\n      {\n        \"id\": \"8fab84ed-a304-49e3-b4e0-3c09f28ed840\",\n        \"name\": \"HSBC\",\n        \"type\": \"savings\",\n        \"on_budget\": true,\n        \"closed\": false,\n        \"note\": null,\n        \"balance\": 572810,\n        \"cleared_balance\": 572810,\n        \"uncleared_balance\": 0,\n        \"transfer_payee_id\": \"1140166f-08e8-473a-8061-65f03447ccc3\",\n        \"direct_import_linked\": false,\n        \"direct_import_in_error\": false,\n        \"last_reconciled_at\": \"2024-01-21T15:03:51Z\",\n        \"debt_original_balance\": null,\n        \"debt_interest_rates\": {},\n        \"debt_minimum_payments\": {},\n        \"debt_escrow_amounts\": {},\n        \"deleted\": false\n      },\n      {\n        \"id\": \"046918fa-6a2c-4f6e-8453-a522dc5164c5\",\n        \"name\": \"TnG\",\n        \"type\": \"checking\",\n        \"on_budget\": true,\n        \"closed\": false,\n        \"note\": null,\n        \"balance\": 209630,\n        \"cleared_balance\": 209630,\n        \"uncleared_balance\": 0,\n        \"transfer_payee_id\": \"212ac3ba-ef2c-4636-9ee3-ccd1d264a27d\",\n        \"direct_import_linked\": false,\n        \"direct_import_in_error\": false,\n        \"last_reconciled_at\": \"2024-08-09T16:10:38Z\",\n        \"debt_original_balance\": null,\n        \"debt_interest_rates\": {},\n        \"debt_minimum_payments\": {},\n        \"debt_escrow_amounts\": {},\n        \"deleted\": false\n      },\n      {\n        \"id\": \"af99b10b-b407-478c-8498-74247cdea747\",\n        \"name\": \"TnG RFID Card\",\n        \"type\": \"checking\",\n        \"on_budget\": true,\n        \"closed\": false,\n        \"note\": null,\n        \"balance\": 100580,\n        \"cleared_balance\": 100580,\n        \"uncleared_balance\": 0,\n        \"transfer_payee_id\": \"607cdfae-736d-46e7-a845-7d78f5378dc1\",\n        \"direct_import_linked\": false,\n        \"direct_import_in_error\": false,\n        \"last_reconciled_at\": \"2024-05-05T09:01:45Z\",\n        \"debt_original_balance\": null,\n        \"debt_interest_rates\": {},\n        \"debt_minimum_payments\": {},\n        \"debt_escrow_amounts\": {},\n        \"deleted\": false\n      },\n      {\n        \"id\": \"2b04754e-f4b3-4388-a4d5-777b95f27874\",\n        \"name\": \"Stashaway\",\n        \"type\": \"otherAsset\",\n        \"on_budget\": false,\n        \"closed\": false,\n        \"note\": null,\n        \"balance\": 2083360,\n        \"cleared_balance\": 2083360,\n        \"uncleared_balance\": 0,\n        \"transfer_payee_id\": \"1255f9d7-014a-4bc2-8921-be02ef2f297c\",\n        \"direct_import_linked\": false,\n        \"direct_import_in_error\": false,\n        \"last_reconciled_at\": \"2024-04-03T15:00:44Z\",\n        \"debt_original_balance\": null,\n        \"debt_interest_rates\": {},\n        \"debt_minimum_payments\": {},\n        \"debt_escrow_amounts\": {},\n        \"deleted\": false\n      },\n      {\n        \"id\": \"3747484a-26ca-4e32-8784-c8e0617a0b30\",\n        \"name\": \"SEL Parking\",\n        \"type\": \"checking\",\n        \"on_budget\": true,\n        \"closed\": false,\n        \"note\": null,\n        \"balance\": 9400,\n        \"cleared_balance\": 9400,\n        \"uncleared_balance\": 0,\n        \"transfer_payee_id\": \"6dd2e7d7-0170-449a-a182-08daff0da029\",\n        \"direct_import_linked\": false,\n        \"direct_import_in_error\": false,\n        \"last_reconciled_at\": null,\n        \"debt_original_balance\": null,\n        \"debt_interest_rates\": {},\n        \"debt_minimum_payments\": {},\n        \"debt_escrow_amounts\": {},\n        \"deleted\": false\n      },\n      {\n        \"id\": \"1fc5652c-9307-4f65-9a84-75068f73876b\",\n        \"name\": \"Luno\",\n        \"type\": \"otherAsset\",\n        \"on_budget\": false,\n        \"closed\": false,\n        \"note\": null,\n        \"balance\": 3351000,\n        \"cleared_balance\": 3351000,\n        \"uncleared_balance\": 0,\n        \"transfer_payee_id\": \"3f1a84d2-5794-4dc0-8d6d-25d54547eaf9\",\n        \"direct_import_linked\": false,\n        \"direct_import_in_error\": false,\n        \"last_reconciled_at\": \"2024-04-03T15:00:47Z\",\n        \"debt_original_balance\": null,\n        \"debt_interest_rates\": {},\n        \"debt_minimum_payments\": {},\n        \"debt_escrow_amounts\": {},\n        \"deleted\": false\n      },\n      {\n        \"id\": \"1f17e57a-c4e3-4334-b61c-a6729ed343cb\",\n        \"name\": \"GX\",\n        \"type\": \"savings\",\n        \"on_budget\": true,\n        \"closed\": false,\n        \"note\": null,\n        \"balance\": 2437320,\n        \"cleared_balance\": 2437320,\n        \"uncleared_balance\": 0,\n        \"transfer_payee_id\": \"370cec6b-ec3c-4492-bed0-6ff706917292\",\n        \"direct_import_linked\": false,\n        \"direct_import_in_error\": false,\n        \"last_reconciled_at\": \"2024-08-09T16:11:17Z\",\n        \"debt_original_balance\": null,\n        \"debt_interest_rates\": {},\n        \"debt_minimum_payments\": {},\n        \"debt_escrow_amounts\": {},\n        \"deleted\": false\n      }\n    ],\n    \"server_knowledge\": 9751\n  }\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "The list of requested accounts",
@@ -473,6 +473,37 @@
           "crudKey": "id"
         },
         {
+          "uuid": "e04c0fc3-38ea-4521-ab20-2aa979fb7d32",
+          "body": "{\n  \"data\": {\n    \"account\": {\n      \"id\": \"1f17e57a-c4e3-4334-b61c-a6729ed343cb\",\n      \"name\": \"GX\",\n      \"type\": \"savings\",\n      \"on_budget\": true,\n      \"closed\": false,\n      \"note\": null,\n      \"balance\": 2437320,\n      \"cleared_balance\": 2437320,\n      \"uncleared_balance\": 0,\n      \"transfer_payee_id\": \"370cec6b-ec3c-4492-bed0-6ff706917292\",\n      \"direct_import_linked\": false,\n      \"direct_import_in_error\": false,\n      \"last_reconciled_at\": \"2024-08-09T16:11:17Z\",\n      \"debt_original_balance\": null,\n      \"debt_interest_rates\": {},\n      \"debt_minimum_payments\": {},\n      \"debt_escrow_amounts\": {},\n      \"deleted\": false\n    }\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Account: GX",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "params",
+              "modifier": "account_id",
+              "value": "1f17e57a-c4e3-4334-b61c-a6729ed343cb",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id"
+        },
+        {
           "uuid": "c02c2703-ecac-4115-97fb-02d7e931a2b2",
           "body": "{\n  \"error\": {\n    \"id\": \"\",\n    \"name\": \"\",\n    \"detail\": \"\"\n  }\n}",
           "latency": 0,
@@ -507,6 +538,42 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id"
+        },
+        {
+          "uuid": "6dd00a3e-646c-4b52-bc88-d9f7f5750158",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id"
+        },
+        {
+          "uuid": "d5a863fa-f94f-47a7-b044-2e781faebe67",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",

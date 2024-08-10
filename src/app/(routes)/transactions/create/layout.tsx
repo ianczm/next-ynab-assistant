@@ -1,6 +1,6 @@
+import { NavOptionTabs } from "@/ui/components/custom/nav-option-tabs";
 import { NavOption } from "@/ui/types/navigation";
 import React from "react";
-import { NavOptionTabs } from "./nav-option-tabs";
 
 const options: NavOption[] = [
   {
