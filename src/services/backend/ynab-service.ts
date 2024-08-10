@@ -28,8 +28,7 @@ export class YnabService {
         "Content-Type": "application/json",
       },
       next: {
-        tags: ["server:ynab"],
-        revalidate: moment.duration({ hour: 8 }).asSeconds(),
+        revalidate: 0,
       },
     };
   }
@@ -57,7 +56,7 @@ export class YnabService {
         }) as SaveTransaction,
     );
 
-    const request = {transactions}
+    const request = { transactions };
 
     return await this.client
       .post<Transactions.PostResponse>(`/budgets/${budgetId}/transactions`, request)
