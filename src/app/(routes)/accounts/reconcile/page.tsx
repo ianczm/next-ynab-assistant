@@ -17,12 +17,20 @@ export default function AccountsReconcilePage() {
   useEffect(() => {
     async function fetchAccounts() {
       const retrievedAccounts = await apiService.getAccounts();
-      setAccounts(retrievedAccounts);
+      setAccounts(retrievedAccounts.data);
     }
     fetchAccounts();
-  });
+  }, []);
 
-  function handleSave() {
+  async function handleSave() {
+    if (selectedAccount && amountInput) {
+      const request: Account = {
+        ...selectedAccount,
+        balance: parseFloat(amountInput),
+      };
+      console.log(request);
+      await apiService.reconcileAccount(request);
+    }
     handleClear();
   }
 
@@ -49,14 +57,23 @@ export default function AccountsReconcilePage() {
         <span className="text-[0.7rem] uppercase">Modification Summary</span>
 
         {selectedAccount ? (
-          <div className="flex flex-col gap-2">
-            <div className="flex flex-col">
-              <span className="text-base font-bold">Account</span>
-              <span className="py-3">{selectedAccount?.name}</span>
+          <>
+            <div className="flex flex-row gap-2">
+              <div className="flex w-full flex-col">
+                <span className="text-base font-bold">Account</span>
+                <span className="py-3">{selectedAccount?.name}</span>
+              </div>
+              <div className="flex w-full flex-col">
+                <span className="text-base font-bold">Balance</span>
+                <span className="py-3">
+                  {selectedAccount?.balance.toLocaleString("en-US", {
+                    maximumFractionDigits: 2,
+                    minimumFractionDigits: 2,
+                  })}
+                </span>
+              </div>
             </div>
-            <div className="flex flex-col">
-              <span className="text-base font-bold">Balance</span>
-              <span className="py-3">{selectedAccount?.balance.toFixed(2)}</span>
+            <div className="flex flex-col gap-2">
               <div className="flex flex-grow divide-x divide-gray-400 overflow-hidden rounded-xl border border-gray-400">
                 <Input
                   isClearable
@@ -74,7 +91,7 @@ export default function AccountsReconcilePage() {
                 />
               </div>
             </div>
-          </div>
+          </>
         ) : (
           <span className="text-base font-bold">No Account Selected</span>
         )}

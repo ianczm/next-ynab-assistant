@@ -1,5 +1,6 @@
 import { ServerConfig } from "@/data/backend/server-config";
-import { Transactions } from "@/data/backend/ynab/api-dto";
+import { Accounts, Transactions } from "@/data/backend/ynab/api-dto";
+import { Account } from "@/data/common/accounts";
 import { Toll } from "@/data/common/tolls";
 import { HttpClientAdapter, HttpClientAdapterConfig } from "@/lib/adapters/http-client";
 import { currencyToMilliUnits, milliUnitsToCurrency } from "@/lib/utils/currency";
@@ -56,10 +57,19 @@ export class YnabService {
         }) as SaveTransaction,
     );
 
+    const request = {transactions}
+
     return await this.client
-      .post<Transactions.PostResponse>(`/budgets/${budgetId}/transactions`, { transactions: transactions })
+      .post<Transactions.PostResponse>(`/budgets/${budgetId}/transactions`, request)
       .then((response) => {
-        console.log({ endpoint: `POST /budgets/${budgetId}/transactions`, response: response });
+        console.dir(
+          {
+            endpoint: `POST /budgets/${budgetId}/transactions`,
+            request: request,
+            response: response,
+          },
+          { depth: 10 },
+        );
         return response;
       })
       .then((response) =>
@@ -69,5 +79,55 @@ export class YnabService {
           id: transaction.id,
         })),
       );
+  }
+
+  async getAccount(budgetId: string, accountId: string): Promise<Accounts.Response> {
+    const response = await this.client.get<Accounts.Response>(`/budgets/${budgetId}/accounts/${accountId}`);
+    console.dir({ endpoint: `GET /budgets/${budgetId}/accounts/${accountId}`, response: response }, { depth: 10 });
+    return response;
+  }
+
+  async getAllAccounts(budgetId: string): Promise<Accounts.MultiResponse> {
+    const response = await this.client.get<Accounts.MultiResponse>(`/budgets/${budgetId}/accounts`);
+    console.log({ endpoint: `GET /budgets/${budgetId}/accounts`, response: response });
+    return response;
+  }
+
+  async postReconcileAccount(budgetId: string, accountReconciliation: Account): Promise<Account> {
+    const CATEGORY_INFLOW = "1fb564a8-1484-4e97-bf6d-77b9f9b2b662";
+
+    const currentAccount = await this.getAccount(budgetId, accountReconciliation.id);
+    const { id, name } = currentAccount.data.account;
+
+    const currentBalance = currentAccount.data.account.balance;
+    const intendedBalance = currencyToMilliUnits(accountReconciliation.balance);
+    const balanceAdjustment = intendedBalance - currentBalance;
+
+    console.log("Calculating balance:", { id, name, currentBalance, intendedBalance, balanceAdjustment });
+
+    const transaction = {
+      account_id: accountReconciliation.id,
+      date: moment().utc().format("YYYY-MM-DD"),
+      amount: balanceAdjustment,
+      payee_id: accountReconciliation.reconciliationInfo.payeeId,
+      category_id: CATEGORY_INFLOW,
+      memo: accountReconciliation.reconciliationInfo.description,
+      cleared: "cleared",
+      approved: false,
+    } as SaveTransaction;
+
+    const createTransactionResponse = await this.client.post<Transactions.PostResponse>(
+      `/budgets/${budgetId}/transactions`,
+      {
+        transaction: transaction,
+      },
+    );
+
+    console.dir(
+      { endpoint: `POST /budgets/${budgetId}/transactions`, request: transaction, response: createTransactionResponse },
+      { depth: 10 },
+    );
+
+    return accountReconciliation;
   }
 }
