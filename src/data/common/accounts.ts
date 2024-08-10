@@ -23,10 +23,10 @@ export const accountToDescriptionMap: { [budgetId: string]: AccountReconciliatio
   },
   "046918fa-6a2c-4f6e-8453-a522dc5164c5": {
     description: "Daily GO+ Interest",
-    payeeId: "75a5de12-50c3-4068-8353-8c1be41d5785",
+    payeeId: "e08c1e0b-c97b-4142-9015-282bc8223e8d",
   },
   "1f17e57a-c4e3-4334-b61c-a6729ed343cb": {
     description: "Daily Interest",
-    payeeId: "e08c1e0b-c97b-4142-9015-282bc8223e8d",
+    payeeId: "75a5de12-50c3-4068-8353-8c1be41d5785",
   },
 };
