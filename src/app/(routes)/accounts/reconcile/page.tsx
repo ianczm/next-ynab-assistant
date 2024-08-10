@@ -8,6 +8,11 @@ import { useEffect, useState } from "react";
 
 const apiService = apiProvider.get();
 
+async function fetchAccounts(setAccounts: (accounts: Account[]) => void) {
+  const retrievedAccounts = await apiService.getAccounts();
+  setAccounts(retrievedAccounts.data);
+}
+
 export default function AccountsReconcilePage() {
   const [accounts, setAccounts] = useState<Account[]>([]);
 
@@ -15,23 +20,18 @@ export default function AccountsReconcilePage() {
   const [amountInput, setAmountInput] = useState<string | null>(null);
 
   useEffect(() => {
-    async function fetchAccounts() {
-      const retrievedAccounts = await apiService.getAccounts();
-      setAccounts(retrievedAccounts.data);
-    }
-    fetchAccounts();
+    fetchAccounts(setAccounts);
   }, []);
 
   async function handleSave() {
     if (selectedAccount && amountInput) {
-      const request: Account = {
+      await apiService.reconcileAccount({
         ...selectedAccount,
         balance: parseFloat(amountInput),
-      };
-      console.log(request);
-      await apiService.reconcileAccount(request);
+      });
     }
     handleClear();
+    await fetchAccounts(setAccounts);
   }
 
   function handleClear() {
