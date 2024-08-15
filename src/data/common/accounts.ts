@@ -29,4 +29,12 @@ export const accountToDescriptionMap: { [budgetId: string]: AccountReconciliatio
     description: "Daily Interest",
     payeeId: "75a5de12-50c3-4068-8353-8c1be41d5785",
   },
+  "1fc5652c-9307-4f65-9a84-75068f73876b": {
+    description: "Update",
+    payeeId: "8a1b6743-abc1-4f9d-9a18-8daed98c4092",
+  },
+  "2b04754e-f4b3-4388-a4d5-777b95f27874": {
+    description: "Update",
+    payeeId: "18899e6a-a474-4605-9e7f-cccb7f8d9d8e",
+  },
 };
