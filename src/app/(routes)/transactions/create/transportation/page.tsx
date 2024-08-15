@@ -19,8 +19,8 @@ export default function CreateTransactionPage() {
   const commonTolls = useCommonTolls(apiService);
 
   const [selectedDate, setSelectedDate] = useState<Moment>(moment());
-
   const [addedTolls, setAddedTolls] = useState<GUID<Toll>[]>([]);
+
   const addedTollsTotalAmount = addedTolls.reduce((sum, toll) => sum + toll.amount, 0);
 
   function addToll(toll: Toll) {

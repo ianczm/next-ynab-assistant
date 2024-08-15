@@ -2,13 +2,12 @@ import _ from "lodash";
 
 export type HttpClientAdapterConfig = {
   baseUrl: string;
-  headers: HeadersInit;
   next?: NextFetchRequestConfig;
-};
+} & RequestInit;
 
 export class HttpClientAdapter {
   baseUrl: string;
-  headers: HeadersInit;
+  headers: HeadersInit | undefined;
   nextConfig: NextFetchRequestConfig;
 
   static create(config: HttpClientAdapterConfig) {

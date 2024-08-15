@@ -9,6 +9,12 @@ const options: NavOption[] = [
     label: "Create Transactions",
     disabled: false,
   },
+  {
+    id: "reconcile-accounts",
+    href: "/accounts/reconcile",
+    label: "Reconcile Accounts",
+    disabled: false,
+  },
 ];
 
 export default function Home() {
